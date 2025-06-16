@@ -227,3 +227,31 @@ You’ll see a JSON object showing win rates by transportation mode and by sales
 Here's a screenshot showing the `/api/stats/win-rates` endpoint response:
 
 ![Win Rates Endpoint](./screen-shots/win-rates-endpoint.png)
+
+## Forecasting Dashboard
+
+This dashboard was added to fulfill the visual reporting requirement for Milestone 1. It provides clear summaries of sales pipeline insights for sales leaders who prefer visual dashboards over APIs.
+
+### 1. 3-Month Revenue Forecast
+
+Displays a forecast based on expected close dates and weighted deal values.
+
+![3-Month Forecast](./screen-shots/forecasting-3-month-revenue.png)
+
+### 2. Win Rate Trends by Transportation Mode
+
+Provides win/loss breakdown by mode such as trucking and ocean.
+
+![Win Rate Trends](./screen-shots/forecasting-win-rate-trends.png)
+
+### 3. Deal Velocity Metrics
+
+Calculates and presents average time spent in each deal stage.
+
+![Deal Velocity](./screen-shots/forecasting-deal-velocity.png)
+
+### 4. At-Risk Deals
+
+Highlights deals with no stage movement in 21+ days.
+
+![At-Risk Deals](./screen-shots/forecasting-at-risk.png)
