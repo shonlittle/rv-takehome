@@ -163,4 +163,67 @@ describe("GET /api/stats/win-rates", () => {
     const data = await response.json();
     expect(data.error).toBe("Internal server error");
   });
+
+  // Edge case test: what happens if the database returns no deals.
+  it("should return empty results if no deals exist", async () => {
+    mockRepository.find.mockResolvedValue([]);
+
+    const response = await GET();
+    const data = await response.json();
+
+    expect(data.byTransportationMode).toEqual({});
+    expect(data.bySalesRep).toEqual({});
+  });
+
+  // Edge case test: make sure non-terminal stages are ignored.
+  it("should ignore deals that are not closed_won or closed_lost", async () => {
+    const mockDeals = [
+      {
+        deal_id: "d1",
+        transportation_mode: "trucking",
+        stage: "prospect",
+        sales_rep: "Alice",
+      },
+      {
+        deal_id: "d2",
+        transportation_mode: "rail",
+        stage: "qualified",
+        sales_rep: "Bob",
+      },
+    ] as Deal[];
+
+    mockRepository.find.mockResolvedValue(mockDeals);
+
+    const response = await GET();
+    const data = await response.json();
+
+    expect(data.byTransportationMode).toEqual({});
+    expect(data.bySalesRep).toEqual({});
+  });
+
+  // Additional test: Check for invalid stage values.
+  it("should gracefully skip deals with invalid stage values", async () => {
+    const mockDeals = [
+      {
+        deal_id: "d1",
+        transportation_mode: "trucking",
+        stage: "unknown_stage",
+        sales_rep: "Alice",
+      },
+      {
+        deal_id: "d2",
+        transportation_mode: "air",
+        stage: "closed_won",
+        sales_rep: "Bob",
+      },
+    ] as Deal[];
+
+    mockRepository.find.mockResolvedValue(mockDeals);
+
+    const response = await GET();
+    const data = await response.json();
+
+    expect(data.byTransportationMode.trucking).toBeUndefined();
+    expect(data.byTransportationMode.air.winRate).toBeCloseTo(1);
+  });
 });
