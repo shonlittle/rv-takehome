@@ -24,10 +24,10 @@
 import React, { useState, useEffect } from "react";
 
 // Add local dependencies
-import TerritoryPerformanceOverview from "./TerritoryPerformanceOverview";
-import TerritoryMapVisualization from "./TerritoryMapVisualization";
-import SalesRepPerformance from "./SalesRepPerformance";
-import TerritoryComparison from "./TerritoryComparison";
+import TerritoryPerformanceOverview from "../territories/TerritoryPerformanceOverview";
+import TerritoryMapVisualization from "../territories/TerritoryMapVisualization";
+import SalesRepPerformance from "../territories/SalesRepPerformance";
+import TerritoryComparison from "../territories/TerritoryComparison";
 
 /**
  * Interface for territory statistics
