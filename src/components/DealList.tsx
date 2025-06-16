@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
+import FilterBar, { ActiveFilter, FilterConfig } from "./common/FilterBar";
 
 interface Deal {
   id: number;
@@ -37,6 +38,7 @@ const DealList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortField, setSortField] = useState<SortField>("created_date");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
+  const [activeFilters, setActiveFilters] = useState<ActiveFilter[]>([]);
 
   useEffect(() => {
     const fetchDeals = async () => {
@@ -68,19 +70,201 @@ const DealList: React.FC = () => {
     return deals;
   }, [pipelineData]);
 
+  // Get unique values for filter options
+  const filterOptions = useMemo(() => {
+    if (!allDeals.length)
+      return {
+        stages: [],
+        salesReps: [],
+        transportationModes: [],
+        territories: [],
+      };
+
+    const stages = [...new Set(allDeals.map((deal) => deal.stage))].map(
+      (value) => ({
+        value,
+        label: value.replace(/_/g, " "),
+      })
+    );
+
+    const salesReps = [...new Set(allDeals.map((deal) => deal.sales_rep))].map(
+      (value) => ({
+        value,
+        label: value,
+      })
+    );
+
+    const transportationModes = [
+      ...new Set(allDeals.map((deal) => deal.transportation_mode)),
+    ].map((value) => ({
+      value,
+      label: value,
+    }));
+
+    // Extract territories from origin_city
+    const territories = [
+      ...new Set(
+        allDeals.map((deal) => {
+          const match = deal.origin_city.match(/,\s*([A-Z]{2})$/);
+          return match ? match[1] : "Other";
+        })
+      ),
+    ].map((value) => ({
+      value,
+      label: value,
+    }));
+
+    return { stages, salesReps, transportationModes, territories };
+  }, [allDeals]);
+
+  // Create filter configurations
+  const filterConfigs: FilterConfig[] = useMemo(
+    () => [
+      {
+        id: "stage",
+        label: "Stage",
+        options: filterOptions.stages,
+      },
+      {
+        id: "salesRep",
+        label: "Sales Rep",
+        options: filterOptions.salesReps,
+      },
+      {
+        id: "transportationMode",
+        label: "Transportation Mode",
+        options: filterOptions.transportationModes,
+      },
+      {
+        id: "territory",
+        label: "Territory",
+        options: filterOptions.territories,
+      },
+    ],
+    [filterOptions]
+  );
+
+  // Handle filter changes
+  const handleFilterChange = (filterId: string, value: string) => {
+    if (!value) {
+      // If empty value, remove the filter
+      setActiveFilters(activeFilters.filter((f) => f.id !== filterId));
+      return;
+    }
+
+    // Find the filter config to get the label
+    const filterConfig = filterConfigs.find((f) => f.id === filterId);
+    if (!filterConfig) return;
+
+    // Find the option to get its label
+    const option = filterConfig.options.find((o) => o.value === value);
+    if (!option) return;
+
+    // Check if this filter is already active
+    const existingFilterIndex = activeFilters.findIndex(
+      (f) => f.id === filterId
+    );
+
+    if (existingFilterIndex >= 0) {
+      // Update existing filter
+      const updatedFilters = [...activeFilters];
+      updatedFilters[existingFilterIndex] = {
+        id: filterId,
+        value,
+        label: filterConfig.label,
+      };
+      setActiveFilters(updatedFilters);
+    } else {
+      // Add new filter
+      setActiveFilters([
+        ...activeFilters,
+        {
+          id: filterId,
+          value,
+          label: filterConfig.label,
+        },
+      ]);
+    }
+  };
+
+  // Handle filter removal
+  const handleFilterRemove = (filter: ActiveFilter) => {
+    setActiveFilters(
+      activeFilters.filter(
+        (f) => !(f.id === filter.id && f.value === filter.value)
+      )
+    );
+  };
+
+  // Clear all filters
+  const handleClearAllFilters = () => {
+    setActiveFilters([]);
+  };
+
   // Filter and sort deals
   const filteredAndSortedDeals = useMemo(() => {
-    let filtered = allDeals.filter(
+    console.log("Running filter with active filters:", activeFilters);
+
+    // First filter by search term
+    const searchFiltered = allDeals.filter(
       (deal) =>
         deal.company_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         deal.contact_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        deal.deal_id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        deal.sales_rep.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        deal.stage.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        deal.transportation_mode
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase())
+        deal.deal_id.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    // Then apply active filters
+    let filtered = searchFiltered;
+
+    if (activeFilters.length > 0) {
+      filtered = searchFiltered.filter((deal) => {
+        // Check each active filter
+        return activeFilters.every((filter) => {
+          let result = false;
+
+          switch (filter.id) {
+            case "stage":
+              result = deal.stage === filter.value;
+              console.log(
+                `Deal ${deal.deal_id} - Stage filter: ${filter.value}, Deal stage: ${deal.stage}, Match: ${result}`
+              );
+              break;
+            case "salesRep":
+              result = deal.sales_rep === filter.value;
+              break;
+            case "transportationMode":
+              result = deal.transportation_mode === filter.value;
+              break;
+            case "territory": {
+              const match = deal.origin_city.match(/,\s*([A-Z]{2})$/);
+              const state = match ? match[1] : "Other";
+              result = state === filter.value;
+              break;
+            }
+            default:
+              result = true;
+          }
+
+          return result;
+        });
+      });
+    }
+
+    // Log filtering for debugging
+    console.log("Active filters:", activeFilters);
+    console.log("Filtered deals:", filtered.length);
+    console.log("All deals:", allDeals.length);
+
+    if (activeFilters.length > 0) {
+      console.log(
+        "Filter values:",
+        activeFilters.map((f) => `${f.id}: ${f.value}`).join(", ")
+      );
+      console.log(
+        "Sample deal stages:",
+        allDeals.slice(0, 3).map((d) => d.stage)
+      );
+    }
 
     filtered.sort((a, b) => {
       let aValue = a[sortField];
@@ -107,7 +291,7 @@ const DealList: React.FC = () => {
     });
 
     return filtered;
-  }, [allDeals, searchTerm, sortField, sortDirection]);
+  }, [allDeals, searchTerm, sortField, sortDirection, activeFilters]);
 
   const handleSort = (field: SortField) => {
     if (field === sortField) {
@@ -159,33 +343,19 @@ const DealList: React.FC = () => {
 
   return (
     <div className="space-y-4">
-      {/* Search Bar */}
-      <div className="flex justify-between items-center">
-        <div className="relative flex-1 max-w-md">
-          <input
-            type="text"
-            placeholder="Search deals..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <svg
-              className="h-5 w-5 text-gray-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div className="text-sm text-gray-600">
+      {/* Filter Bar */}
+      <div className="space-y-2">
+        <FilterBar
+          filters={filterConfigs}
+          activeFilters={activeFilters}
+          searchTerm={searchTerm}
+          onFilterChange={handleFilterChange}
+          onFilterRemove={handleFilterRemove}
+          onClearAllFilters={handleClearAllFilters}
+          onSearchChange={setSearchTerm}
+          searchPlaceholder="Search company names..."
+        />
+        <div className="text-sm text-gray-600 text-right">
           Showing {filteredAndSortedDeals.length} of {allDeals.length} deals
         </div>
       </div>
