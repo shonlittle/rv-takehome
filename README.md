@@ -58,12 +58,16 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - No Docker used — setup ran smoothly with local SQLite database.
 - Assumes Node.js 18+ is installed.
 
-### Win Rate API (Milestone 1 Feature)
+### Milestone 1 (Win Rate API)
 
 This feature introduces an advanced analytics endpoint that calculates win rates for deals based on two key dimensions:
 
 - **Transportation Mode** (e.g., trucking, ocean, rail, air)
 - **Sales Representative**
+
+#### Path Selection
+
+I chose the Sales Forecasting Engine (Milestone 1, Option A) to flex my BCG experience in working with business logic and decision-making. I am also new to Next.js (I use Express.js) and wanted to prove I could work with it.
 
 #### Endpoint
 
@@ -150,7 +154,6 @@ Manually, I addressed some of the linting and "Problems" that were being reporte
 
 ### Technical Decisions
 
-- **Path Selection**: I chose the Sales Forecasting Engine (Milestone 1, Option A) to flex my BCG experience in working with business logic and decision-making. I am also new to Next.js (I use Express.js) and wanted to prove I could work with it.
 - **Entity Grouping**: I focused on grouping by `transportation_mode` and `sales_rep` for the win rate calculations, as these are the most actionable and consistently available fields.
 - **Territories and Reassignment**: Since the system doesn’t yet support territory definitions or reassignment workflows, I treated sales rep names as primary identifiers for performance comparison.
 - **Tech Stack Respect**: I did not introduce Docker or external frameworks to avoid interfering with the provided repo setup. I ensured compatibility with the SQLite database and existing TypeORM structure. I tend to favor microservices but am fine not using containers if that is the working norm.
@@ -197,7 +200,29 @@ You’ll see a JSON object showing win rates by transportation mode and by sales
 }
 ```
 
-### Win Rates Endpoint
+### What I'd prioritize next with more time
+
+- Would work on the UI so leadership could have better access to the win rate calculation.
+- Would enhance with a map (MapBox) and geospacial data.
+- There could be a lot of value by creating a basic predictive revenue forecasting feature using stage weighting and win rates.
+- Add detection for "stalled" deals...or similarly a feature to track open deals that have not closed after a period of time (3 weeks?) and alert reps and/or sales leadership to make sure nothing is falling through the cracks.
+- More comprehensive testing (intergration testing/QA autoamation testing).
+- Additional error handling and make sure the API is fully resilient.
+- Sanitize inputs and make sure no sketchy data slips through.
+- Double-check that no sensitive info is leaking from the API.
+- Lock down routes if needed (auth, roles, etc.).
+
+### Test coverage
+
+- Should calculate win rates correctly.
+- Should handle errors correctly.
+- Should return empty results if no deals exist.
+- Should ignore deals that are not closed_won or closed_lost.
+- Should gracefully skip deals with invalid stage values.
+
+![Coverage](./screen-shots/unit-test-coverage.png)
+
+### Demo: Win Rates Endpoint
 
 Here's a screenshot showing the `/api/stats/win-rates` endpoint response:
 
