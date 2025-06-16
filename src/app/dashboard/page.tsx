@@ -20,9 +20,9 @@ import ForecastingDashboard from "../../components/ForecastingDashboard";
 
 export default function DashboardPage() {
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-3 sm:p-4 md:p-6">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6 md:mb-8">
           Forecasting Dashboard
         </h1>
         <ForecastingDashboard />

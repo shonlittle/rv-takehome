@@ -111,20 +111,20 @@ const WinRateTrends: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-          <p className="text-sm font-medium text-gray-600 mb-1">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+        <div className="bg-white border border-gray-200 rounded-lg p-3 sm:p-4 shadow-sm">
+          <p className="text-xs sm:text-sm font-medium text-gray-600 mb-1">
             Transportation Modes
           </p>
-          <p className="text-2xl font-bold text-gray-900">
+          <p className="text-xl sm:text-2xl font-bold text-gray-900">
             {transportationModes.length}
           </p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-          <p className="text-sm font-medium text-gray-600 mb-1">
+        <div className="bg-white border border-gray-200 rounded-lg p-3 sm:p-4 shadow-sm">
+          <p className="text-xs sm:text-sm font-medium text-gray-600 mb-1">
             Highest Win Rate
           </p>
-          <p className="text-2xl font-bold text-gray-900">
+          <p className="text-xl sm:text-2xl font-bold text-gray-900">
             {formatPercentage(
               winRates.byTransportationMode[highestWinRateMode].winRate
             )}
@@ -133,11 +133,11 @@ const WinRateTrends: React.FC = () => {
             {highestWinRateMode}
           </p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-          <p className="text-sm font-medium text-gray-600 mb-1">
+        <div className="bg-white border border-gray-200 rounded-lg p-3 sm:p-4 shadow-sm sm:col-span-2 md:col-span-1">
+          <p className="text-xs sm:text-sm font-medium text-gray-600 mb-1">
             Lowest Win Rate
           </p>
-          <p className="text-2xl font-bold text-gray-900">
+          <p className="text-xl sm:text-2xl font-bold text-gray-900">
             {formatPercentage(
               winRates.byTransportationMode[lowestWinRateMode].winRate
             )}
@@ -149,7 +149,7 @@ const WinRateTrends: React.FC = () => {
       </div>
 
       {/* Bar Chart */}
-      <div className="h-64 relative mt-8">
+      <div className="h-48 sm:h-64 relative mt-4 sm:mt-6">
         <div className="absolute inset-0 flex items-end justify-around">
           {transportationModes.map((mode, index) => {
             const winRate = winRates.byTransportationMode[mode].winRate * 100;
@@ -157,16 +157,16 @@ const WinRateTrends: React.FC = () => {
 
             return (
               <div key={index} className="flex flex-col items-center w-1/4">
-                <div className="text-sm font-medium text-gray-700 mb-2">
+                <div className="text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                   {formatPercentage(
                     winRates.byTransportationMode[mode].winRate
                   )}
                 </div>
                 <div
-                  className="w-20 bg-green-500 rounded-t-md transition-all duration-500"
+                  className="w-12 sm:w-20 bg-green-500 rounded-t-md transition-all duration-500"
                   style={{ height: `${height}%` }}
                 ></div>
-                <div className="text-sm text-gray-600 mt-2 capitalize">
+                <div className="text-xs sm:text-sm text-gray-600 mt-1 sm:mt-2 capitalize truncate max-w-full">
                   {mode}
                 </div>
                 <div className="text-xs text-gray-500">
@@ -179,24 +179,24 @@ const WinRateTrends: React.FC = () => {
         </div>
       </div>
 
-      {/* Table View */}
-      <div className="overflow-x-auto mt-6">
+      {/* Table View (visible on md screens and up) */}
+      <div className="hidden md:block overflow-x-auto mt-4 sm:mt-6">
         <table className="min-w-full bg-white border border-gray-200 rounded-lg">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Transportation Mode
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Win Rate
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Wins
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Losses
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Total Deals
               </th>
             </tr>
@@ -209,19 +209,19 @@ const WinRateTrends: React.FC = () => {
 
               return (
                 <tr key={index} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 capitalize">
+                  <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900 capitalize">
                     {mode}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
                     {formatPercentage(winRate)}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
                     {wins}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
                     {losses}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
                     {total}
                   </td>
                 </tr>
@@ -229,6 +229,45 @@ const WinRateTrends: React.FC = () => {
             })}
           </tbody>
         </table>
+      </div>
+
+      {/* Card View (visible on small screens only) */}
+      <div className="md:hidden space-y-3 mt-4">
+        {transportationModes.map((mode, index) => {
+          const { wins, losses, winRate } = winRates.byTransportationMode[mode];
+          const total = wins + losses;
+
+          return (
+            <div
+              key={index}
+              className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm"
+            >
+              <div className="flex justify-between items-start mb-3">
+                <h3 className="text-sm font-medium text-gray-900 capitalize">
+                  {mode}
+                </h3>
+                <span className="text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full">
+                  {formatPercentage(winRate)}
+                </span>
+              </div>
+
+              <div className="grid grid-cols-3 gap-3 text-xs">
+                <div>
+                  <p className="text-gray-500">Wins</p>
+                  <p className="font-medium text-gray-900">{wins}</p>
+                </div>
+                <div>
+                  <p className="text-gray-500">Losses</p>
+                  <p className="font-medium text-gray-900">{losses}</p>
+                </div>
+                <div>
+                  <p className="text-gray-500">Total</p>
+                  <p className="font-medium text-gray-900">{total}</p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

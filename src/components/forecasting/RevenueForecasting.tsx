@@ -178,16 +178,18 @@ const RevenueForecasting: React.FC = () => {
   );
 
   return (
-    <div className="space-y-6">
-      <div className="text-center mb-4">
-        <p className="text-sm text-gray-600">Total 3-Month Forecast</p>
-        <p className="text-3xl font-bold text-gray-900">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="text-center mb-3 sm:mb-4">
+        <p className="text-xs sm:text-sm text-gray-600">
+          Total 3-Month Forecast
+        </p>
+        <p className="text-2xl sm:text-3xl font-bold text-gray-900">
           {formatCurrency(totalForecast)}
         </p>
       </div>
 
       {/* Bar Chart */}
-      <div className="h-64 relative">
+      <div className="h-48 sm:h-64 relative">
         <div className="absolute inset-0 flex items-end justify-around">
           {forecastData.map((data, index) => {
             const maxValue = Math.max(...forecastData.map((d) => d.forecast));
@@ -195,14 +197,20 @@ const RevenueForecasting: React.FC = () => {
 
             return (
               <div key={index} className="flex flex-col items-center w-1/4">
-                <div className="text-sm font-medium text-gray-700 mb-2">
+                <div className="text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                   {formatCurrency(data.forecast)}
                 </div>
                 <div
-                  className="w-20 bg-blue-500 rounded-t-md transition-all duration-500"
+                  className="w-12 sm:w-20 bg-blue-500 rounded-t-md transition-all duration-500"
                   style={{ height: `${Math.max(height, 5)}%` }}
                 ></div>
-                <div className="text-sm text-gray-600 mt-2">{data.month}</div>
+                <div className="text-xs sm:text-sm text-gray-600 mt-1 sm:mt-2 truncate max-w-full">
+                  {data.month.split(" ")[0]}
+                  <span className="hidden sm:inline">
+                    {" "}
+                    {data.month.split(" ")[1]}
+                  </span>
+                </div>
                 <div className="text-xs text-gray-500">
                   {data.dealCount} deals
                 </div>
@@ -212,18 +220,18 @@ const RevenueForecasting: React.FC = () => {
         </div>
       </div>
 
-      {/* Table View */}
-      <div className="overflow-x-auto mt-6">
+      {/* Table View (visible on md screens and up) */}
+      <div className="hidden md:block overflow-x-auto mt-4 sm:mt-6">
         <table className="min-w-full bg-white border border-gray-200 rounded-lg">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Month
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Forecasted Revenue
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Deal Count
               </th>
             </tr>
@@ -231,30 +239,73 @@ const RevenueForecasting: React.FC = () => {
           <tbody className="bg-white divide-y divide-gray-200">
             {forecastData.map((data, index) => (
               <tr key={index} className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900">
                   {data.month}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
                   {formatCurrency(data.forecast)}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
                   {data.dealCount}
                 </td>
               </tr>
             ))}
             <tr className="bg-gray-50 font-medium">
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+              <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900">
                 Total
               </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+              <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900">
                 {formatCurrency(totalForecast)}
               </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+              <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900">
                 {forecastData.reduce((sum, month) => sum + month.dealCount, 0)}
               </td>
             </tr>
           </tbody>
         </table>
+      </div>
+
+      {/* Card View (visible on small screens only) */}
+      <div className="md:hidden space-y-3 mt-4">
+        {forecastData.map((data, index) => (
+          <div
+            key={index}
+            className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm"
+          >
+            <h3 className="text-sm font-medium text-gray-900 mb-2">
+              {data.month}
+            </h3>
+            <div className="grid grid-cols-2 gap-3 text-xs">
+              <div>
+                <p className="text-gray-500">Forecasted Revenue</p>
+                <p className="font-medium text-gray-900">
+                  {formatCurrency(data.forecast)}
+                </p>
+              </div>
+              <div>
+                <p className="text-gray-500">Deal Count</p>
+                <p className="font-medium text-gray-900">{data.dealCount}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+        <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm bg-gray-50">
+          <h3 className="text-sm font-medium text-gray-900 mb-2">Total</h3>
+          <div className="grid grid-cols-2 gap-3 text-xs">
+            <div>
+              <p className="text-gray-500">Forecasted Revenue</p>
+              <p className="font-medium text-gray-900">
+                {formatCurrency(totalForecast)}
+              </p>
+            </div>
+            <div>
+              <p className="text-gray-500">Deal Count</p>
+              <p className="font-medium text-gray-900">
+                {forecastData.reduce((sum, month) => sum + month.dealCount, 0)}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

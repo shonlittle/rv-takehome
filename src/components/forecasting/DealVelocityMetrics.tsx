@@ -179,15 +179,17 @@ const DealVelocityMetrics: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="text-center mb-4">
-        <p className="text-sm text-gray-600">Overall Average Time in Stage</p>
-        <p className="text-3xl font-bold text-gray-900">
+      <div className="text-center mb-3 sm:mb-4">
+        <p className="text-xs sm:text-sm text-gray-600">
+          Overall Average Time in Stage
+        </p>
+        <p className="text-2xl sm:text-3xl font-bold text-gray-900">
           {overallAvgVelocity.toFixed(1)} days
         </p>
       </div>
 
       {/* Bar Chart */}
-      <div className="h-64 relative">
+      <div className="h-48 sm:h-64 relative">
         <div className="absolute inset-0 flex items-end justify-around">
           {stageVelocityData.map((data, index) => {
             const maxValue = Math.max(
@@ -197,14 +199,14 @@ const DealVelocityMetrics: React.FC = () => {
 
             return (
               <div key={index} className="flex flex-col items-center w-1/6">
-                <div className="text-sm font-medium text-gray-700 mb-2">
+                <div className="text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                   {data.avgDays.toFixed(1)} days
                 </div>
                 <div
-                  className="w-16 bg-purple-500 rounded-t-md transition-all duration-500"
+                  className="w-10 sm:w-16 bg-purple-500 rounded-t-md transition-all duration-500"
                   style={{ height: `${Math.max(height, 5)}%` }}
                 ></div>
-                <div className="text-sm text-gray-600 mt-2 capitalize">
+                <div className="text-xs sm:text-sm text-gray-600 mt-1 sm:mt-2 capitalize truncate max-w-full">
                   {data.stage.replace("_", " ")}
                 </div>
                 <div className="text-xs text-gray-500">
@@ -216,18 +218,18 @@ const DealVelocityMetrics: React.FC = () => {
         </div>
       </div>
 
-      {/* Table View */}
-      <div className="overflow-x-auto mt-6">
+      {/* Table View (visible on md screens and up) */}
+      <div className="hidden md:block overflow-x-auto mt-4 sm:mt-6">
         <table className="min-w-full bg-white border border-gray-200 rounded-lg">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Stage
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Avg. Days in Stage
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Deal Count
               </th>
             </tr>
@@ -235,25 +237,25 @@ const DealVelocityMetrics: React.FC = () => {
           <tbody className="bg-white divide-y divide-gray-200">
             {stageVelocityData.map((data, index) => (
               <tr key={index} className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 capitalize">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900 capitalize">
                   {data.stage.replace("_", " ")}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
                   {data.avgDays.toFixed(1)} days
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
                   {data.dealCount}
                 </td>
               </tr>
             ))}
             <tr className="bg-gray-50 font-medium">
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+              <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900">
                 Overall Average
               </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+              <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900">
                 {overallAvgVelocity.toFixed(1)} days
               </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+              <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900">
                 {stageVelocityData.reduce(
                   (sum, data) => sum + data.dealCount,
                   0
@@ -262,6 +264,42 @@ const DealVelocityMetrics: React.FC = () => {
             </tr>
           </tbody>
         </table>
+      </div>
+
+      {/* Card View (visible on small screens only) */}
+      <div className="md:hidden space-y-3 mt-4">
+        {stageVelocityData.map((data, index) => (
+          <div
+            key={index}
+            className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm"
+          >
+            <div className="flex justify-between items-start mb-3">
+              <h3 className="text-sm font-medium text-gray-900 capitalize">
+                {data.stage.replace("_", " ")}
+              </h3>
+              <span className="text-xs font-medium text-purple-600 bg-purple-50 px-2 py-1 rounded-full">
+                {data.avgDays.toFixed(1)} days
+              </span>
+            </div>
+            <div className="text-xs text-gray-500">
+              {data.dealCount} deals in this stage
+            </div>
+          </div>
+        ))}
+        <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm bg-gray-50">
+          <div className="flex justify-between items-start mb-3">
+            <h3 className="text-sm font-medium text-gray-900">
+              Overall Average
+            </h3>
+            <span className="text-xs font-medium text-purple-600 bg-purple-50 px-2 py-1 rounded-full">
+              {overallAvgVelocity.toFixed(1)} days
+            </span>
+          </div>
+          <div className="text-xs text-gray-500">
+            {stageVelocityData.reduce((sum, data) => sum + data.dealCount, 0)}{" "}
+            total deals
+          </div>
+        </div>
       </div>
     </div>
   );
