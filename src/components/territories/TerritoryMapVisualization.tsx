@@ -140,7 +140,7 @@ const TerritoryMapVisualization: React.FC<TerritoryMapVisualizationProps> = ({
   return (
     <div className="overflow-hidden">
       {/* D3.js Map Visualization */}
-      <div className="mb-6">
+      <div className="mb-4 sm:mb-6">
         <USMapVisualization
           territoryData={territoryData}
           selectedTerritory={selectedTerritoryState}
@@ -149,7 +149,7 @@ const TerritoryMapVisualization: React.FC<TerritoryMapVisualizationProps> = ({
       </div>
 
       {/* Existing Grid Visualization */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
         {grid.map((row, rowIndex) => (
           <React.Fragment key={`row-${rowIndex}`}>
             {row.map((cell, colIndex) => {
@@ -179,31 +179,33 @@ const TerritoryMapVisualization: React.FC<TerritoryMapVisualizationProps> = ({
                 <div
                   key={`cell-${rowIndex}-${colIndex}`}
                   className={`
-                    p-4 rounded-lg border-2 h-40 flex flex-col justify-between
+                    p-3 sm:p-4 rounded-lg border-2 h-32 sm:h-40 flex flex-col justify-between
                     ${colorClass}
                     ${isSelected ? "ring-2 ring-blue-500" : ""}
                     ${totalDeals === 0 ? "opacity-50" : ""}
                   `}
                 >
                   <div>
-                    <h3 className="font-bold text-gray-800">{cell.name}</h3>
+                    <h3 className="font-bold text-gray-800 text-sm sm:text-base">
+                      {cell.name}
+                    </h3>
                     <div className="text-xs text-gray-500 mt-1">
                       {cell.states.join(", ")}
                     </div>
                   </div>
 
                   <div className="mt-2">
-                    <div className="flex justify-between text-sm">
+                    <div className="flex justify-between text-xs sm:text-sm">
                       <span>Win Rate:</span>
                       <span className="font-medium">
                         {formatPercentage(stats.winRate)}
                       </span>
                     </div>
-                    <div className="flex justify-between text-sm">
+                    <div className="flex justify-between text-xs sm:text-sm">
                       <span>Deals:</span>
                       <span className="font-medium">{totalDeals}</span>
                     </div>
-                    <div className="flex justify-between text-sm">
+                    <div className="flex justify-between text-xs sm:text-sm">
                       <span>Value:</span>
                       <span className="font-medium">
                         {formatCurrency(stats.totalValue)}
@@ -217,23 +219,31 @@ const TerritoryMapVisualization: React.FC<TerritoryMapVisualizationProps> = ({
         ))}
       </div>
 
-      <div className="mt-6 flex justify-center">
-        <div className="flex items-center space-x-6">
+      <div className="mt-4 sm:mt-6 flex justify-center">
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4 px-2">
           <div className="flex items-center">
-            <div className="w-4 h-4 bg-green-100 border border-green-500 rounded mr-2"></div>
-            <span className="text-sm text-gray-600">High (≥70%)</span>
+            <div className="w-3 h-3 sm:w-4 sm:h-4 bg-green-100 border border-green-500 rounded mr-1 sm:mr-2"></div>
+            <span className="text-xs sm:text-sm text-gray-600">
+              High (≥70%)
+            </span>
           </div>
           <div className="flex items-center">
-            <div className="w-4 h-4 bg-blue-100 border border-blue-500 rounded mr-2"></div>
-            <span className="text-sm text-gray-600">Good (50-69%)</span>
+            <div className="w-3 h-3 sm:w-4 sm:h-4 bg-blue-100 border border-blue-500 rounded mr-1 sm:mr-2"></div>
+            <span className="text-xs sm:text-sm text-gray-600">
+              Good (50-69%)
+            </span>
           </div>
           <div className="flex items-center">
-            <div className="w-4 h-4 bg-yellow-100 border border-yellow-500 rounded mr-2"></div>
-            <span className="text-sm text-gray-600">Fair (30-49%)</span>
+            <div className="w-3 h-3 sm:w-4 sm:h-4 bg-yellow-100 border border-yellow-500 rounded mr-1 sm:mr-2"></div>
+            <span className="text-xs sm:text-sm text-gray-600">
+              Fair (30-49%)
+            </span>
           </div>
           <div className="flex items-center">
-            <div className="w-4 h-4 bg-red-100 border border-red-500 rounded mr-2"></div>
-            <span className="text-sm text-gray-600">Low (&lt;30%)</span>
+            <div className="w-3 h-3 sm:w-4 sm:h-4 bg-red-100 border border-red-500 rounded mr-1 sm:mr-2"></div>
+            <span className="text-xs sm:text-sm text-gray-600">
+              Low (&lt;30%)
+            </span>
           </div>
         </div>
       </div>

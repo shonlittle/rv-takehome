@@ -531,10 +531,10 @@ const TerritoryDashboard: React.FC = () => {
   }
 
   return (
-    <div className="grid gap-6">
+    <div className="grid gap-4 sm:gap-6">
       {/* Filter Bar */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+      <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
           Filter Territories
         </h2>
         <FilterBar
@@ -550,8 +550,8 @@ const TerritoryDashboard: React.FC = () => {
       </div>
 
       {/* Territory Performance Overview Section */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+      <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
           Territory Performance Overview
         </h2>
         <TerritoryPerformanceOverview
@@ -562,8 +562,8 @@ const TerritoryDashboard: React.FC = () => {
       </div>
 
       {/* Territory Map Visualization Section */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+      <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
           Territory Map Visualization
         </h2>
         <TerritoryMapVisualization
@@ -573,8 +573,8 @@ const TerritoryDashboard: React.FC = () => {
       </div>
 
       {/* Sales Rep Performance Section */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+      <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
           Sales Rep Performance by Territory
         </h2>
         <SalesRepPerformance
@@ -584,8 +584,8 @@ const TerritoryDashboard: React.FC = () => {
       </div>
 
       {/* Territory Comparison Section */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+      <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
           Territory Comparison
         </h2>
         <TerritoryComparison territoryData={filteredTerritoryData || {}} />
