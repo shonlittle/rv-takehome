@@ -17,7 +17,8 @@
  */
 
 // Add third-party dependencies
-import React from "react";
+import React, { useState } from "react";
+import USMapVisualization from "./USMapVisualization";
 
 /**
  * Interface for territory statistics
@@ -124,8 +125,30 @@ const TerritoryMapVisualization: React.FC<TerritoryMapVisualizationProps> = ({
 
   const grid = createGrid();
 
+  // Track selected territory for both visualizations
+  const [selectedTerritoryState, setSelectedTerritoryState] = useState<
+    string | null
+  >(selectedTerritory);
+
+  // Handle territory selection
+  const handleTerritorySelect = (territory: string) => {
+    setSelectedTerritoryState(
+      territory === selectedTerritoryState ? null : territory
+    );
+  };
+
   return (
     <div className="overflow-hidden">
+      {/* D3.js Map Visualization */}
+      <div className="mb-6">
+        <USMapVisualization
+          territoryData={territoryData}
+          selectedTerritory={selectedTerritoryState}
+          onTerritorySelect={handleTerritorySelect}
+        />
+      </div>
+
+      {/* Existing Grid Visualization */}
       <div className="grid grid-cols-4 gap-4">
         {grid.map((row, rowIndex) => (
           <React.Fragment key={`row-${rowIndex}`}>
