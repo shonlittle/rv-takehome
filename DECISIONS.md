@@ -8,6 +8,8 @@
 - Use the stage column with values of 'closed_won' and 'closed_lost' for win rate calculations.
 - Formula: `wins / (wins + losses)`.
 - It's okay to show win rates for modes and reps that only have wins or only losses.
+- I assumed that sales leadership cares more about patterns of success by sales reps and transprotation modes. This would present opportunities for successful reps to share best practices and tips and tricks as well as to train and upskill underperforming reps. Also, would provide insights into outcomes on with tranportation modes are most optimal.
+- I prioritized delivering a win rate API and dashboard table first, instead of tackling more ambitious UI visualizations like a geographic map. A quick, working solution that unblocks decision-making seemed more valuable in the short term. Would add mapping to the backlog as a nice-to-have.
 
 ### Key Decisions
 
