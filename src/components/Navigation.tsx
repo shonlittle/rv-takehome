@@ -20,11 +20,13 @@ export default function Navigation() {
 
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-14 sm:h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0 flex items-center">
-              <span className="text-blue-600 font-bold text-xl">SalesViz</span>
+              <span className="text-blue-600 font-bold text-lg sm:text-xl">
+                SalesViz
+              </span>
             </div>
           </div>
 
@@ -51,8 +53,8 @@ export default function Navigation() {
           <div className="flex items-center sm:hidden">
             <button
               onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
-              aria-expanded="false"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 touch-manipulation"
+              aria-expanded={isMenuOpen ? "true" : "false"}
             >
               <span className="sr-only">Open main menu</span>
               {/* Icon when menu is closed */}
@@ -93,13 +95,17 @@ export default function Navigation() {
       </div>
 
       {/* Mobile menu, show/hide based on menu state */}
-      <div className={`${isMenuOpen ? "block" : "hidden"} sm:hidden`}>
-        <div className="pt-2 pb-3 space-y-1">
+      <div
+        className={`${
+          isMenuOpen ? "block" : "hidden"
+        } sm:hidden transition-all duration-200 ease-in-out`}
+      >
+        <div className="pt-2 pb-4 space-y-1">
           {navItems.map((item) => (
             <Link
               key={item.path}
               href={item.path}
-              className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium
+              className={`block pl-3 pr-4 py-3 border-l-4 text-base font-medium
                 ${
                   pathname === item.path
                     ? "bg-blue-50 border-blue-500 text-blue-700"
