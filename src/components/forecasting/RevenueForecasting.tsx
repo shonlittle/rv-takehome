@@ -107,9 +107,10 @@ const RevenueForecasting: React.FC = () => {
 
       // Calculate weighted revenue (value * probability)
       const weightedRevenue = monthDeals.reduce((sum, deal) => {
-        // Apply different weights based on stage
+        // Apply different weights based on stage (case-insensitive)
         let stageWeight = 1;
-        switch (deal.stage) {
+        const stageLower = deal.stage.toLowerCase();
+        switch (stageLower) {
           case "prospect":
             stageWeight = 0.1;
             break;
