@@ -34,3 +34,24 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## From Developer
+
+### Setup
+
+1. Fork the repo
+2. Clone the repo
+3. Run `npm install` to install dependencies
+4. Start the app: `npm run dev`
+5. The app runs on [http://localhost:3000](http://localhost:3000) by default
+6. Seed the database with:
+   ```bash
+   curl -X POST http://localhost:3000/api/seed
+   ```
+7. Run `npm dev` to run dev environment
+
+### Notes
+
+- This repo is a fork of the original [Revenue Vessel take-home](https://github.com/Revenue-Vessel/rv-takehome).
+- No Docker used — setup ran smoothly with local SQLite database.
+- Assumes Node.js 18+ is installed.
