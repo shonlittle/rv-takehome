@@ -11,7 +11,7 @@ jest.mock("next/server", () => {
     json: jest.fn().mockImplementation(() => {
       try {
         return Promise.resolve(JSON.parse(options?.body || "{}"));
-      } catch (_error) {
+      } catch {
         return Promise.reject(new Error("Invalid JSON"));
       }
     }),
@@ -44,8 +44,10 @@ const mockInitializeDataSource = initializeDataSource as jest.MockedFunction<
 >;
 
 describe("GET /api/stats/win-rates", () => {
-  let mockRepository: { find: jest.Mock };
-  let mockDataSource: { getRepository: jest.Mock };
+  let mockRepository: { find: jest.Mock<Promise<Deal[]>> };
+  let mockDataSource: {
+    getRepository: jest.Mock<{ find: jest.Mock<Promise<Deal[]>> }>;
+  };
 
   beforeEach(() => {
     mockRepository = {
@@ -56,7 +58,9 @@ describe("GET /api/stats/win-rates", () => {
       getRepository: jest.fn().mockReturnValue(mockRepository),
     };
 
-    mockInitializeDataSource.mockResolvedValue(mockDataSource);
+    // Use a type assertion for the mock - this is necessary for testing
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    mockInitializeDataSource.mockResolvedValue(mockDataSource as any);
     jest.clearAllMocks();
   });
 
