@@ -53,5 +53,86 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 ### Notes
 
 - This repo is a fork of the original [Revenue Vessel take-home](https://github.com/Revenue-Vessel/rv-takehome).
+- An `npm install` is required before `npm dev`.
+- Only the default port `3000` is used even though port `3001` is mentioned.
 - No Docker used — setup ran smoothly with local SQLite database.
 - Assumes Node.js 18+ is installed.
+
+### Win Rate API (Milestone 1 Feature)
+
+This feature introduces an advanced analytics endpoint that calculates win rates for deals based on two key dimensions:
+
+- **Transportation Mode** (e.g., trucking, ocean, rail, air)
+- **Sales Representative**
+
+#### Endpoint
+
+```
+GET /api/stats/win-rates
+```
+
+#### Response Format
+
+```json
+{
+  "byTransportationMode": {
+    "ocean": {
+      "wins": 1,
+      "losses": 0,
+      "winRate": 1
+    },
+    "trucking": {
+      "wins": 0,
+      "losses": 1,
+      "winRate": 0
+    }
+  },
+  "bySalesRep": {
+    "Mike Rodriguez": {
+      "wins": 1,
+      "losses": 0,
+      "winRate": 1
+    },
+    "Jennifer Walsh": {
+      "wins": 0,
+      "losses": 1,
+      "winRate": 0
+    }
+  }
+}
+```
+
+#### Implementation Notes
+
+- Only deals in the `closed_won` and `closed_lost` stages are considered.
+- Win rate is calculated using the formula:
+
+  ```
+  winRate = wins / (wins + losses)
+  ```
+
+- The logic lives in:
+  - `src/lib/business/deals/analytics.ts`: core win rate calculation
+  - `src/app/api/stats/win-rates/route.ts`: API handler
+
+#### Testing
+
+- Unit tests for this API are located in:  
+  `src/__tests__/api/win-rates.test.ts`
+
+- Run all tests using:
+
+  ```bash
+  npm test
+  ```
+
+- If you encounter mocking errors during testing, ensure the mock path for `AppDataSource` is correctly set to:
+
+  ```ts
+  jest.mock("../../data-source", () => ({
+    AppDataSource: {
+      isInitialized: true,
+      getRepository: jest.fn(),
+    },
+  }));
+  ```
