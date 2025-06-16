@@ -28,6 +28,10 @@ export function getStageAnalytics(deals: Deal[]): {
   return { totalDeals, stageAnalytics };
 }
 
+/**
+ * Blame Shon Little
+ * 2025-06-16
+ */
 export function getWinRates(deals: Deal[]): {
   byTransportationMode: Record<
     string,
