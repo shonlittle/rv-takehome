@@ -196,3 +196,9 @@ You’ll see a JSON object showing win rates by transportation mode and by sales
   }
 }
 ```
+
+### Win Rates Endpoint
+
+Here's a screenshot showing the `/api/stats/win-rates` endpoint response:
+
+![Win Rates Endpoint](./screen-shots/win-rates-endpoint.png)
