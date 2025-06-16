@@ -42,7 +42,9 @@ export function getWinRates(deals: Deal[]): {
 } {
   // Filter deals to only include closed deals (won or lost)
   const closedDeals = deals.filter(
-    (deal) => deal.stage === "closed_won" || deal.stage === "closed_lost"
+    (deal) =>
+      deal.stage.toLowerCase() === "closed_won" ||
+      deal.stage.toLowerCase() === "closed_lost"
   );
 
   // Group by transportation mode
@@ -78,10 +80,10 @@ export function getWinRates(deals: Deal[]): {
     }
 
     // Increment wins or losses based on deal stage
-    if (deal.stage === "closed_won") {
+    if (deal.stage.toLowerCase() === "closed_won") {
       byTransportationMode[deal.transportation_mode].wins++;
       bySalesRep[deal.sales_rep].wins++;
-    } else if (deal.stage === "closed_lost") {
+    } else if (deal.stage.toLowerCase() === "closed_lost") {
       byTransportationMode[deal.transportation_mode].losses++;
       bySalesRep[deal.sales_rep].losses++;
     }

@@ -86,7 +86,10 @@ const AtRiskDeals: React.FC = () => {
     return deals
       .filter((deal) => {
         // Skip closed deals
-        if (deal.stage === "closed_won" || deal.stage === "closed_lost") {
+        if (
+          deal.stage.toLowerCase() === "closed_won" ||
+          deal.stage.toLowerCase() === "closed_lost"
+        ) {
           return false;
         }
 
