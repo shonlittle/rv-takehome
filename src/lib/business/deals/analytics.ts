@@ -1,3 +1,4 @@
+// Add local dependencies
 import { Deal } from "../../entities/deals/Deal";
 
 export function getStageAnalytics(deals: Deal[]): {
