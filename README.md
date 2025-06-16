@@ -220,13 +220,13 @@ You’ll see a JSON object showing win rates by transportation mode and by sales
 - Should ignore deals that are not closed_won or closed_lost.
 - Should gracefully skip deals with invalid stage values.
 
-![Coverage](./screen-shots/unit-test-coverage.png)
+![Coverage](./screenshots/unit-test-coverage.png)
 
 ### Demo: Win Rates Endpoint
 
 Here's a screenshot showing the `/api/stats/win-rates` endpoint response:
 
-![Win Rates Endpoint](./screen-shots/win-rates-endpoint.png)
+![Win Rates Endpoint](./screenshots/win-rates-endpoint.png)
 
 ## Forecasting Dashboard
 
@@ -236,22 +236,22 @@ This dashboard was added to fulfill the visual reporting requirement for Milesto
 
 Displays a forecast based on expected close dates and weighted deal values.
 
-![3-Month Forecast](./screen-shots/forecasting-3-month-revenue.png)
+![3-Month Forecast](./screenshots/forecasting-3-month-revenue.png)
 
 ### 2. Win Rate Trends by Transportation Mode
 
 Provides win/loss breakdown by mode such as trucking and ocean.
 
-![Win Rate Trends](./screen-shots/forecasting-win-rate-trends.png)
+![Win Rate Trends](./screenshots/forecasting-win-rate-trends.png)
 
 ### 3. Deal Velocity Metrics
 
 Calculates and presents average time spent in each deal stage.
 
-![Deal Velocity](./screen-shots/forecasting-deal-velocity.png)
+![Deal Velocity](./screenshots/forecasting-deal-velocity.png)
 
 ### 4. At-Risk Deals
 
 Highlights deals with no stage movement in 21+ days.
 
-![At-Risk Deals](./screen-shots/forecasting-at-risk.png)
+![At-Risk Deals](./screenshots/forecasting-at-risk.png)
