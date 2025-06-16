@@ -1,40 +1,3 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
 ## From Developer
 
 ### Setup
@@ -220,13 +183,13 @@ You’ll see a JSON object showing win rates by transportation mode and by sales
 - Should ignore deals that are not closed_won or closed_lost.
 - Should gracefully skip deals with invalid stage values.
 
-![Coverage](./screen-shots/unit-test-coverage.png)
+![Coverage](./screenshots/unit-test-coverage.png)
 
 ### Demo: Win Rates Endpoint
 
 Here's a screenshot showing the `/api/stats/win-rates` endpoint response:
 
-![Win Rates Endpoint](./screen-shots/win-rates-endpoint.png)
+![Win Rates Endpoint](./screenshots/win-rates-endpoint.png)
 
 ## Forecasting Dashboard
 
@@ -236,22 +199,61 @@ This dashboard was added to fulfill the visual reporting requirement for Milesto
 
 Displays a forecast based on expected close dates and weighted deal values.
 
-![3-Month Forecast](./screen-shots/forecasting-3-month-revenue.png)
+![3-Month Forecast](./screenshots/forecasting-3-month-revenue.png)
 
 ### 2. Win Rate Trends by Transportation Mode
 
 Provides win/loss breakdown by mode such as trucking and ocean.
 
-![Win Rate Trends](./screen-shots/forecasting-win-rate-trends.png)
+![Win Rate Trends](./screenshots/forecasting-win-rate-trends.png)
 
 ### 3. Deal Velocity Metrics
 
 Calculates and presents average time spent in each deal stage.
 
-![Deal Velocity](./screen-shots/forecasting-deal-velocity.png)
+![Deal Velocity](./screenshots/forecasting-deal-velocity.png)
 
 ### 4. At-Risk Deals
 
 Highlights deals with no stage movement in 21+ days.
 
-![At-Risk Deals](./screen-shots/forecasting-at-risk.png)
+![At-Risk Deals](./screenshots/forecasting-at-risk.png)
+
+---
+
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
