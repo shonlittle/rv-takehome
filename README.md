@@ -13,6 +13,10 @@
    ```
 7. Run `npm dev` to run dev environment
 
+### Decisions
+
+For a detailed look at the architectural and implementation decisions I made, see [DECISIONS.md](./DECISIONS.md).
+
 ### Notes
 
 - This repo is a fork of the original [Revenue Vessel take-home](https://github.com/Revenue-Vessel/rv-takehome).
@@ -21,7 +25,30 @@
 - No Docker used — setup ran smoothly with local SQLite database.
 - Assumes Node.js 18+ is installed.
 
-### Milestone 1 (Win Rate API)
+## Table of Contents
+
+- [Milestone 1: Sales Forecasting Engine](#milestone-1-option-a-sales-forecasting-engine)
+  - [Path Selection](#path-selection)
+  - [Endpoint](#endpoint)
+  - [Response Format](#response-format)
+  - [Implementation Notes](#implementation-notes)
+  - [Testing](#testing)
+- [Milestone 1: Territory Management System](#bonus-milestone-1-option-b-territory-management-system)
+  - [Path Selection](#path-selection-1)
+  - [Endpoint](#endpoint-1)
+  - [Response Format](#response-format-1)
+  - [Implementation Notes](#implementation-notes-1)
+- [Milestone 2: Specialization Deep Dive](#optional-milestone-2-specialization-deep-dive)
+  - [Advanced Search & Filtering](#advanced-search--filtering)
+  - [Mobile-Responsive Design](#mobile-responsive-design)
+- [AI Collaboration Report](#ai-collaboration-report)
+- [Technical Decisions](#technical-decisions)
+- [Demo Guide](#demo-guide)
+- [Future Priorities](#what-id-prioritize-next-with-more-time)
+- [Test Coverage](#test-coverage)
+- [Demo](#demo)
+
+### Milestone 1 (Option A: Sales Forecasting Engine)
 
 This feature introduces an advanced analytics endpoint that calculates win rates for deals based on two key dimensions:
 
@@ -104,6 +131,139 @@ GET /api/stats/win-rates
   }));
   ```
 
+### Optional Milestone 2: Specialization Deep Dive
+
+For the optional Milestone 2, I pursued Path B: Full-Stack Product Development to showcase product-focused engineering work. I selected two enhancements:
+
+#### Advanced Search & Filtering
+
+I added client-side filtering to the Territories Dashboard, allowing users to:
+
+- Filter by **territory name**
+- Filter by **sales rep**
+- Filter by **stage**
+- Filter by **transportation mode**
+- See filtered results update immediately without page reload
+
+This improves usability for sales and operations leaders who want to quickly zero in on a rep or region without navigating through raw JSON or cluttered tables.
+
+#### Mobile-Responsive Design
+
+The application layout was adjusted for mobile and small screens using responsive Tailwind CSS utilities. Improvements include:
+
+- Dashboards now stack vertically on narrow screens
+- Tables and charts are scrollable or reformatted for readability
+- Navigation and headers adjust layout for smaller viewports
+
+This ensures the tool remains usable on phones and tablets for users on the go.
+
+### BONUS: Milestone 1 (Option B: Territory Management System)
+
+This feature introduces an interactive dashboard and API that groups deals into U.S. territories and evaluates performance by region and sales rep. It provides sales ops leaders with a way to track team performance by region and identify workload imbalances.
+
+#### Path Selection
+
+I included this to highlight my full-stack development capabilities and product thinking. The system allows for flexible territory definition and displays insights in both tabular and map-based visualizations.
+
+#### Endpoint
+
+```
+GET /api/stats/territories
+```
+
+#### Response Format
+
+```json
+{
+  "Pacific": {
+    "wins": 1,
+    "losses": 0,
+    "winRate": 1,
+    "totalValue": 95000,
+    "repBreakdown": {
+      "Mike Rodriguez": {
+        "wins": 1,
+        "losses": 0
+      }
+    }
+  },
+  "Mountain": {
+    "wins": 0,
+    "losses": 0,
+    "winRate": 0,
+    "totalValue": 0,
+    "repBreakdown": {
+      "Jennifer Walsh": {
+        "wins": 0,
+        "losses": 0
+      }
+    }
+  },
+  "Southeast": {
+    "wins": 0,
+    "losses": 1,
+    "winRate": 0,
+    "totalValue": 0,
+    "repBreakdown": {
+      "Tom Wilson": {
+        "wins": 0,
+        "losses": 0
+      },
+      "Jennifer Walsh": {
+        "wins": 0,
+        "losses": 1
+      }
+    }
+  },
+  "Midwest": {
+    "wins": 0,
+    "losses": 0,
+    "winRate": 0,
+    "totalValue": 0,
+    "repBreakdown": {
+      "Lisa Anderson": {
+        "wins": 0,
+        "losses": 0
+      }
+    }
+  },
+  "Southwest": {
+    "wins": 0,
+    "losses": 0,
+    "winRate": 0,
+    "totalValue": 0,
+    "repBreakdown": {
+      "Tom Wilson": {
+        "wins": 0,
+        "losses": 0
+      }
+    }
+  },
+  "Northeast": {
+    "wins": 0,
+    "losses": 0,
+    "winRate": 0,
+    "totalValue": 0,
+    "repBreakdown": {
+      "Mike Rodriguez": {
+        "wins": 0,
+        "losses": 0
+      }
+    }
+  }
+}
+```
+
+#### Implementation Notes
+
+- City/state info is parsed into U.S. regions using string matching.
+- Grouping by territory supports future use for reassignment or rep balance views.
+- The `/territories` dashboard view includes:
+  - Table view with region/rep stats
+  - Comparison chart
+  - Region-specific views
+  - D3.js map of U.S. with dynamic region performance coloring
+
 ### AI Collaboration Report
 
 For this project, I used a combination of Claude Sonnet 4 in cursor and I also used Cline with OpenRouter in VSCode as well as ChatGPT 4o for some of the prose tasks.
@@ -118,142 +278,89 @@ Manually, I addressed some of the linting and "Problems" that were being reporte
 ### Technical Decisions
 
 - **Entity Grouping**: I focused on grouping by `transportation_mode` and `sales_rep` for the win rate calculations, as these are the most actionable and consistently available fields.
-- **Territories and Reassignment**: Since the system doesn’t yet support territory definitions or reassignment workflows, I treated sales rep names as primary identifiers for performance comparison.
+- **Territories and Reassignment**: Since the system doesn't yet support territory definitions or reassignment workflows, I treated sales rep names as primary identifiers for performance comparison.
 - **Tech Stack Respect**: I did not introduce Docker or external frameworks to avoid interfering with the provided repo setup. I ensured compatibility with the SQLite database and existing TypeORM structure. I tend to favor microservices but am fine not using containers if that is the working norm.
 
 ## Demo Guide
 
-To view the implemented win-rate analytics:
+To explore the implemented features and dashboards:
 
 1. Start the development server with:
    ```bash
    npm install
    npm run dev
    ```
-2. Navigate to [http://localhost:3000/api/stats/win-rates](http://localhost:3000/api/stats/win-rates)
+2. Open your browser to http://localhost:3000.
+   You'll land on the home page, which now includes navigation links to:
 
-You’ll see a JSON object showing win rates by transportation mode and by sales rep, like so:
+- Win Rate Analytics
+- Forecasting Dashboard
+- Territory Management Dashboard
 
-```json
-{
-  "byTransportationMode": {
-    "ocean": {
-      "wins": 1,
-      "losses": 0,
-      "winRate": 1
-    },
-    "trucking": {
-      "wins": 0,
-      "losses": 1,
-      "winRate": 0
-    }
-  },
-  "bySalesRep": {
-    "Mike Rodriguez": {
-      "wins": 1,
-      "losses": 0,
-      "winRate": 1
-    },
-    "Jennifer Walsh": {
-      "wins": 0,
-      "losses": 1,
-      "winRate": 0
-    }
-  }
-}
-```
+3. Click any link to explore the dashboards. Each dashboard provides a unique view:
+
+- Win Rate Analytics: API-driven JSON view of win rates by transportation mode and sales rep
+- Forecasting Dashboard: Visual charts showing 3-month revenue forecast, win rate trends, deal velocity, and at-risk deals
+- Territory Management Dashboard: Interactive table and visual map with filters, rep assignments, and performance by region
 
 ### What I'd prioritize next with more time
 
-- Would work on the UI so leadership could have better access to the win rate calculation.
-- Would enhance with a map (MapBox) and geospacial data.
-- There could be a lot of value by creating a basic predictive revenue forecasting feature using stage weighting and win rates.
-- Add detection for "stalled" deals...or similarly a feature to track open deals that have not closed after a period of time (3 weeks?) and alert reps and/or sales leadership to make sure nothing is falling through the cracks.
-- More comprehensive testing (intergration testing/QA autoamation testing).
-- Additional error handling and make sure the API is fully resilient.
-- Sanitize inputs and make sure no sketchy data slips through.
-- Double-check that no sensitive info is leaking from the API.
-- Lock down routes if needed (auth, roles, etc.).
+- Add more advanced filtering, such as multi-select transportation modes or custom date ranges.
+- Enhance the territory map with richer interactivity — e.g., drilldowns by region, hover tooltips with stats, or click-to-filter.
+- Implement deal reassignment workflows to fully support territory rep balancing with audit logging.
+- Expand the forecasting logic to support user-adjustable probability weights and trend-based adjustments.
+- Detect and flag stalled deals automatically with email or in-app notifications.
+- Strengthen test coverage with integration tests, UI tests, and edge case QA automation.
+- Add role-based access control (RBAC) to secure sensitive data and restrict access by role.
+- Sanitize inputs and improve data validation to guard against bad or malicious data.
+- Optimize backend performance with query caching or pagination where needed.
+- Consider adding a light onboarding or tooltip experience to help sales leaders navigate the dashboards quickly.
 
 ### Test coverage
 
-- Should calculate win rates correctly.
-- Should handle errors correctly.
-- Should return empty results if no deals exist.
-- Should ignore deals that are not closed_won or closed_lost.
-- Should gracefully skip deals with invalid stage values.
+Test coverage report showing comprehensive test suite.
+![Unit Test Coverage](./screenshots/unit-test-coverage.png)
 
-![Coverage](./screenshots/unit-test-coverage.png)
+## Brief Demo
 
-### Demo: Win Rates Endpoint
+#### Sales Forecasting Engine
 
-Here's a screenshot showing the `/api/stats/win-rates` endpoint response:
+**3-Month Revenue Forecast**: Shows projected revenue based on weighted deal values and expected close dates.
+![3-Month Revenue Forecast](./screenshots/forecasting-3-month-revenue.png)
 
-![Win Rates Endpoint](./screenshots/win-rates-endpoint.png)
-
-## Forecasting Dashboard
-
-This dashboard was added to fulfill the visual reporting requirement for Milestone 1. It provides clear summaries of sales pipeline insights for sales leaders who prefer visual dashboards over APIs.
-
-### 1. 3-Month Revenue Forecast
-
-Displays a forecast based on expected close dates and weighted deal values.
-
-![3-Month Forecast](./screenshots/forecasting-3-month-revenue.png)
-
-### 2. Win Rate Trends by Transportation Mode
-
-Provides win/loss breakdown by mode such as trucking and ocean.
-
+**Win Rate Trends**: Displays win/loss breakdown by transportation mode (trucking, ocean, rail, air).
 ![Win Rate Trends](./screenshots/forecasting-win-rate-trends.png)
 
-### 3. Deal Velocity Metrics
+**Deal Velocity Metrics**: Visualizes average time spent in each sales pipeline stage.
+![Deal Velocity Metrics](./screenshots/forecasting-deal-velocity.png)
 
-Calculates and presents average time spent in each deal stage.
+**At Risk Deals**: Highlights deals with no stage movement in 21+ days, sorted by risk level.
+![At Risk Deals](./screenshots/forecasting-at-risk.png)
 
-![Deal Velocity](./screenshots/forecasting-deal-velocity.png)
+**Win Rates Endpoint**: API response showing win rates by transportation mode and sales rep.
+![Win Rates Endpoint](./screenshots/win-rates-endpoint.png)
 
-### 4. At-Risk Deals
+#### Territory Management System
 
-Highlights deals with no stage movement in 21+ days.
+**Territory Overview**: Interactive dashboard showing performance metrics across U.S. territories.
+![Territory Overview](./screenshots/territory-overview.png)
 
-![At-Risk Deals](./screenshots/forecasting-at-risk.png)
+**Territory Comparison**: Side-by-side comparison of territory performance metrics.
+![Territory Comparison](./screenshots/territory-comparison.png)
 
----
+**Sales Rep Breakdown**: Detailed view of sales rep performance within territories.
+![Sales Rep Breakdown](./screenshots/territory-reps.png)
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+**Territory Map Visualization**: Interactive U.S. map with territory performance coloring.
+![Territory Map Visualization](./screenshots/territory-map-viz.png)
 
-## Getting Started
+**Territories Endpoint**: API response showing territory statistics and sales rep breakdown.
+![Territories Endpoint](./screenshots/territories-endpoint.png)
 
-First, run the development server:
+#### Milestone 2 Enhancements
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**Advanced Search & Filtering**: Client-side filtering interface for territory and deal data.
+![Advanced Search & Filtering](./screenshots/search-and-filter.png)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Mobile Responsive Design**: Responsive layout optimized for mobile and tablet devices.
+![Mobile Responsive Design](./screenshots/mobile.png)
