@@ -247,8 +247,6 @@ I added client-side filtering to the Territories Dashboard, allowing users to:
 
 This improves usability for sales and operations leaders who want to quickly zero in on a rep or region without navigating through raw JSON or cluttered tables.
 
-![Screenshot](./screenshots/search-and-filter.png)
-
 #### Mobile-Responsive Design
 
 The application layout was adjusted for mobile and small screens using responsive Tailwind CSS utilities. Improvements include:
@@ -258,7 +256,6 @@ The application layout was adjusted for mobile and small screens using responsiv
 - Navigation and headers adjust layout for smaller viewports
 
 This ensures the tool remains usable on phones and tablets for users on the go.
-![Screenshot](./screenshots/mobile.png)
 
 ### AI Collaboration Report
 
@@ -274,7 +271,7 @@ Manually, I addressed some of the linting and "Problems" that were being reporte
 ### Technical Decisions
 
 - **Entity Grouping**: I focused on grouping by `transportation_mode` and `sales_rep` for the win rate calculations, as these are the most actionable and consistently available fields.
-- **Territories and Reassignment**: Since the system doesn’t yet support territory definitions or reassignment workflows, I treated sales rep names as primary identifiers for performance comparison.
+- **Territories and Reassignment**: Since the system doesn't yet support territory definitions or reassignment workflows, I treated sales rep names as primary identifiers for performance comparison.
 - **Tech Stack Respect**: I did not introduce Docker or external frameworks to avoid interfering with the provided repo setup. I ensured compatibility with the SQLite database and existing TypeORM structure. I tend to favor microservices but am fine not using containers if that is the working norm.
 
 ## Demo Guide
@@ -287,7 +284,7 @@ To explore the implemented features and dashboards:
    npm run dev
    ```
 2. Open your browser to http://localhost:3000.
-   You’ll land on the home page, which now includes navigation links to:
+   You'll land on the home page, which now includes navigation links to:
 
 - Win Rate Analytics
 - Forecasting Dashboard
@@ -320,38 +317,49 @@ To explore the implemented features and dashboards:
 - Should ignore deals that are not closed_won or closed_lost.
 - Should gracefully skip deals with invalid stage values.
 
-![Coverage](./screenshots/unit-test-coverage.png)
+**Unit Test Coverage**: Test coverage report showing comprehensive test suite.
+![Unit Test Coverage](./screenshots/unit-test-coverage.png)
 
-### Demo: Win Rates Endpoint
+## Demo
 
-Here's a screenshot showing the `/api/stats/win-rates` endpoint response:
+#### Sales Forecasting Engine
 
-![Win Rates Endpoint](./screenshots/win-rates-endpoint.png)
+**3-Month Revenue Forecast**: Shows projected revenue based on weighted deal values and expected close dates.
+![3-Month Revenue Forecast](./screenshots/forecasting-3-month-revenue.png)
 
-## Forecasting Dashboard
-
-This dashboard was added to fulfill the visual reporting requirement for Milestone 1. It provides clear summaries of sales pipeline insights for sales leaders who prefer visual dashboards over APIs.
-
-### 1. 3-Month Revenue Forecast
-
-Displays a forecast based on expected close dates and weighted deal values.
-
-![3-Month Forecast](./screenshots/forecasting-3-month-revenue.png)
-
-### 2. Win Rate Trends by Transportation Mode
-
-Provides win/loss breakdown by mode such as trucking and ocean.
-
+**Win Rate Trends**: Displays win/loss breakdown by transportation mode (trucking, ocean, rail, air).
 ![Win Rate Trends](./screenshots/forecasting-win-rate-trends.png)
 
-### 3. Deal Velocity Metrics
+**Deal Velocity Metrics**: Visualizes average time spent in each sales pipeline stage.
+![Deal Velocity Metrics](./screenshots/forecasting-deal-velocity.png)
 
-Calculates and presents average time spent in each deal stage.
+**At Risk Deals**: Highlights deals with no stage movement in 21+ days, sorted by risk level.
+![At Risk Deals](./screenshots/forecasting-at-risk.png)
 
-![Deal Velocity](./screenshots/forecasting-deal-velocity.png)
+**Win Rates Endpoint**: API response showing win rates by transportation mode and sales rep.
+![Win Rates Endpoint](./screenshots/win-rates-endpoint.png)
 
-### 4. At-Risk Deals
+#### Territory Management System
 
-Highlights deals with no stage movement in 21+ days.
+**Territory Overview**: Interactive dashboard showing performance metrics across U.S. territories.
+![Territory Overview](./screenshots/territory-overview.png)
 
-![At-Risk Deals](./screenshots/forecasting-at-risk.png)
+**Territory Comparison**: Side-by-side comparison of territory performance metrics.
+![Territory Comparison](./screenshots/territory-comparison.png)
+
+**Sales Rep Breakdown**: Detailed view of sales rep performance within territories.
+![Sales Rep Breakdown](./screenshots/territory-reps.png)
+
+**Territory Map Visualization**: Interactive U.S. map with territory performance coloring.
+![Territory Map Visualization](./screenshots/territory-map-viz.png)
+
+**Territories Endpoint**: API response showing territory statistics and sales rep breakdown.
+![Territories Endpoint](./screenshots/territories-endpoint.png)
+
+#### Milestone 2 Enhancements
+
+**Advanced Search & Filtering**: Client-side filtering interface for territory and deal data.
+![Advanced Search & Filtering](./screenshots/search-and-filter.png)
+
+**Mobile Responsive Design**: Responsive layout optimized for mobile and tablet devices.
+![Mobile Responsive Design](./screenshots/mobile.png)
