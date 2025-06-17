@@ -106,11 +106,11 @@ GET /api/stats/win-rates
 
 ### BONUS: Milestone 1 (Option B: Territory Management System)
 
-This feature introduces ...
+This feature introduces an interactive dashboard and API that groups deals into U.S. territories and evaluates performance by region and sales rep. It provides sales ops leaders with a way to track team performance by region and identify workload imbalances.
 
 #### Path Selection
 
-I encluded this ...
+I included this to highlight my full-stack development capabilities and product thinking. The system allows for flexible territory definition and displays insights in both tabular and map-based visualizations.
 
 #### Endpoint
 
@@ -203,27 +203,21 @@ GET /api/stats/territories
 
 #### Implementation Notes
 
-#### Testing
+- City/state info is parsed into U.S. regions using string matching.
+- Grouping by territory supports future use for reassignment or rep balance views.
+- The `/territories` dashboard view includes:
+  - Table view with region/rep stats
+  - Comparison chart
+  - Region-specific views
+  - D3.js map of U.S. with dynamic region performance coloring
 
-- Unit tests for this API are located in:  
-  `src/__tests__/api/territories.test.ts`
+#### Screenshots
 
-- Run all tests using:
-
-  ```bash
-  npm test
-  ```
-
-- If you encounter mocking errors during testing, ensure the mock path for `AppDataSource` is correctly set to:
-
-  ```ts
-  jest.mock("../../data-source", () => ({
-    AppDataSource: {
-      isInitialized: true,
-      getRepository: jest.fn(),
-    },
-  }));
-  ```
+- ![Territory Overview](./screenshots/territory-overview.png)
+- ![Comparison](./screenshots/territory-comparison.png)
+- ![Rep Breakdown](./screenshots/territory-reps.png)
+- ![Map Viz](./screenshots/territory-map-viz.png)
+- ![Territories Endpoint](./screenshots/territories-endpoint.png)
 
 ### AI Collaboration Report
 
