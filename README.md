@@ -25,6 +25,29 @@ For a detailed look at the architectural and implementation decisions I made, se
 - No Docker used — setup ran smoothly with local SQLite database.
 - Assumes Node.js 18+ is installed.
 
+## Table of Contents
+
+- [Milestone 1: Sales Forecasting Engine](#milestone-1-option-a-sales-forecasting-engine)
+  - [Path Selection](#path-selection)
+  - [Endpoint](#endpoint)
+  - [Response Format](#response-format)
+  - [Implementation Notes](#implementation-notes)
+  - [Testing](#testing)
+- [Milestone 1: Territory Management System](#bonus-milestone-1-option-b-territory-management-system)
+  - [Path Selection](#path-selection-1)
+  - [Endpoint](#endpoint-1)
+  - [Response Format](#response-format-1)
+  - [Implementation Notes](#implementation-notes-1)
+- [Milestone 2: Specialization Deep Dive](#optional-milestone-2-specialization-deep-dive)
+  - [Advanced Search & Filtering](#advanced-search--filtering)
+  - [Mobile-Responsive Design](#mobile-responsive-design)
+- [AI Collaboration Report](#ai-collaboration-report)
+- [Technical Decisions](#technical-decisions)
+- [Demo Guide](#demo-guide)
+- [Future Priorities](#what-id-prioritize-next-with-more-time)
+- [Test Coverage](#test-coverage)
+- [Demo](#demo)
+
 ### Milestone 1 (Option A: Sales Forecasting Engine)
 
 This feature introduces an advanced analytics endpoint that calculates win rates for deals based on two key dimensions:
@@ -295,16 +318,10 @@ To explore the implemented features and dashboards:
 
 ### Test coverage
 
-- Should calculate win rates correctly.
-- Should handle errors correctly.
-- Should return empty results if no deals exist.
-- Should ignore deals that are not closed_won or closed_lost.
-- Should gracefully skip deals with invalid stage values.
-
-**Unit Test Coverage**: Test coverage report showing comprehensive test suite.
+Test coverage report showing comprehensive test suite.
 ![Unit Test Coverage](./screenshots/unit-test-coverage.png)
 
-## Demo
+## Brief Demo
 
 #### Sales Forecasting Engine
 
