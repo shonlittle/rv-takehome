@@ -106,11 +106,11 @@ GET /api/stats/win-rates
 
 #### Screenshots
 
-- ![3-Month Revenue Forecast](./screenshots/forecasting-3-month-revenue.png)
-- ![Win Rate Trends](./screenshots/forecasting-win-rate-trends.png)
-- ![Deal Velocity Metrics](./screenshots/forecasting-deal-velocity.png)
-- ![At Risk Deals](./screenshots/forecasting-at-risk.png)
-- ![Territories Endpoint](./screenshots/win-rates-endpoint.png)
+![3-Month Revenue Forecast](./screenshots/forecasting-3-month-revenue.png)
+![Win Rate Trends](./screenshots/forecasting-win-rate-trends.png)
+![Deal Velocity Metrics](./screenshots/forecasting-deal-velocity.png)
+![At Risk Deals](./screenshots/forecasting-at-risk.png)
+![Territories Endpoint](./screenshots/win-rates-endpoint.png)
 
 ### BONUS: Milestone 1 (Option B: Territory Management System)
 
@@ -221,11 +221,11 @@ GET /api/stats/territories
 
 #### Screenshots
 
-- ![Territory Overview](./screenshots/territory-overview.png)
-- ![Comparison](./screenshots/territory-comparison.png)
-- ![Rep Breakdown](./screenshots/territory-reps.png)
-- ![Map Viz](./screenshots/territory-map-viz.png)
-- ![Territories Endpoint](./screenshots/territories-endpoint.png)
+![Territory Overview](./screenshots/territory-overview.png)
+![Comparison](./screenshots/territory-comparison.png)
+![Rep Breakdown](./screenshots/territory-reps.png)
+![Map Viz](./screenshots/territory-map-viz.png)
+![Territories Endpoint](./screenshots/territories-endpoint.png)
 
 ### Optional Milestone 2: Specialization Deep Dive
 
@@ -275,45 +275,25 @@ Manually, I addressed some of the linting and "Problems" that were being reporte
 
 ## Demo Guide
 
-To view the implemented win-rate analytics:
+To explore the implemented features and dashboards:
 
 1. Start the development server with:
    ```bash
    npm install
    npm run dev
    ```
-2. Navigate to [http://localhost:3000/api/stats/win-rates](http://localhost:3000/api/stats/win-rates)
+2. Open your browser to http://localhost:3000.
+   You’ll land on the home page, which now includes navigation links to:
 
-You’ll see a JSON object showing win rates by transportation mode and by sales rep, like so:
+- Win Rate Analytics
+- Forecasting Dashboard
+- Territory Management Dashboard
 
-```json
-{
-  "byTransportationMode": {
-    "ocean": {
-      "wins": 1,
-      "losses": 0,
-      "winRate": 1
-    },
-    "trucking": {
-      "wins": 0,
-      "losses": 1,
-      "winRate": 0
-    }
-  },
-  "bySalesRep": {
-    "Mike Rodriguez": {
-      "wins": 1,
-      "losses": 0,
-      "winRate": 1
-    },
-    "Jennifer Walsh": {
-      "wins": 0,
-      "losses": 1,
-      "winRate": 0
-    }
-  }
-}
-```
+3. Click any link to explore the dashboards. Each dashboard provides a unique view:
+
+- Win Rate Analytics: API-driven JSON view of win rates by transportation mode and sales rep
+- Forecasting Dashboard: Visual charts showing 3-month revenue forecast, win rate trends, deal velocity, and at-risk deals
+- Territory Management Dashboard: Interactive table and visual map with filters, rep assignments, and performance by region
 
 ### What I'd prioritize next with more time
 
