@@ -21,7 +21,7 @@
 - No Docker used — setup ran smoothly with local SQLite database.
 - Assumes Node.js 18+ is installed.
 
-### Milestone 1 (Win Rate API)
+### Milestone 1 (Option A: Sales Forecasting Engine)
 
 This feature introduces an advanced analytics endpoint that calculates win rates for deals based on two key dimensions:
 
@@ -86,6 +86,127 @@ GET /api/stats/win-rates
 
 - Unit tests for this API are located in:  
   `src/__tests__/api/win-rates.test.ts`
+
+- Run all tests using:
+
+  ```bash
+  npm test
+  ```
+
+- If you encounter mocking errors during testing, ensure the mock path for `AppDataSource` is correctly set to:
+
+  ```ts
+  jest.mock("../../data-source", () => ({
+    AppDataSource: {
+      isInitialized: true,
+      getRepository: jest.fn(),
+    },
+  }));
+  ```
+
+### BONUS: Milestone 1 (Option B: Territory Management System)
+
+This feature introduces ...
+
+#### Path Selection
+
+I encluded this ...
+
+#### Endpoint
+
+```
+GET /api/stats/territories
+```
+
+#### Response Format
+
+```json
+{
+  "Pacific": {
+    "wins": 1,
+    "losses": 0,
+    "winRate": 1,
+    "totalValue": 95000,
+    "repBreakdown": {
+      "Mike Rodriguez": {
+        "wins": 1,
+        "losses": 0
+      }
+    }
+  },
+  "Mountain": {
+    "wins": 0,
+    "losses": 0,
+    "winRate": 0,
+    "totalValue": 0,
+    "repBreakdown": {
+      "Jennifer Walsh": {
+        "wins": 0,
+        "losses": 0
+      }
+    }
+  },
+  "Southeast": {
+    "wins": 0,
+    "losses": 1,
+    "winRate": 0,
+    "totalValue": 0,
+    "repBreakdown": {
+      "Tom Wilson": {
+        "wins": 0,
+        "losses": 0
+      },
+      "Jennifer Walsh": {
+        "wins": 0,
+        "losses": 1
+      }
+    }
+  },
+  "Midwest": {
+    "wins": 0,
+    "losses": 0,
+    "winRate": 0,
+    "totalValue": 0,
+    "repBreakdown": {
+      "Lisa Anderson": {
+        "wins": 0,
+        "losses": 0
+      }
+    }
+  },
+  "Southwest": {
+    "wins": 0,
+    "losses": 0,
+    "winRate": 0,
+    "totalValue": 0,
+    "repBreakdown": {
+      "Tom Wilson": {
+        "wins": 0,
+        "losses": 0
+      }
+    }
+  },
+  "Northeast": {
+    "wins": 0,
+    "losses": 0,
+    "winRate": 0,
+    "totalValue": 0,
+    "repBreakdown": {
+      "Mike Rodriguez": {
+        "wins": 0,
+        "losses": 0
+      }
+    }
+  }
+}
+```
+
+#### Implementation Notes
+
+#### Testing
+
+- Unit tests for this API are located in:  
+  `src/__tests__/api/territories.test.ts`
 
 - Run all tests using:
 
