@@ -297,15 +297,16 @@ To explore the implemented features and dashboards:
 
 ### What I'd prioritize next with more time
 
-- Would work on the UI so leadership could have better access to the win rate calculation.
-- Would enhance with a map (MapBox) and geospacial data.
-- There could be a lot of value by creating a basic predictive revenue forecasting feature using stage weighting and win rates.
-- Add detection for "stalled" deals...or similarly a feature to track open deals that have not closed after a period of time (3 weeks?) and alert reps and/or sales leadership to make sure nothing is falling through the cracks.
-- More comprehensive testing (intergration testing/QA autoamation testing).
-- Additional error handling and make sure the API is fully resilient.
-- Sanitize inputs and make sure no sketchy data slips through.
-- Double-check that no sensitive info is leaking from the API.
-- Lock down routes if needed (auth, roles, etc.).
+- Add more advanced filtering, such as multi-select transportation modes or custom date ranges.
+- Enhance the territory map with richer interactivity — e.g., drilldowns by region, hover tooltips with stats, or click-to-filter.
+- Implement deal reassignment workflows to fully support territory rep balancing with audit logging.
+- Expand the forecasting logic to support user-adjustable probability weights and trend-based adjustments.
+- Detect and flag stalled deals automatically with email or in-app notifications.
+- Strengthen test coverage with integration tests, UI tests, and edge case QA automation.
+- Add role-based access control (RBAC) to secure sensitive data and restrict access by role.
+- Sanitize inputs and improve data validation to guard against bad or malicious data.
+- Optimize backend performance with query caching or pagination where needed.
+- Consider adding a light onboarding or tooltip experience to help sales leaders navigate the dashboards quickly.
 
 ### Test coverage
 
