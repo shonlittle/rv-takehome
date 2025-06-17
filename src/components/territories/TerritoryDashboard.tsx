@@ -96,6 +96,75 @@ const TerritoryDashboard: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [activeFilters, setActiveFilters] = useState<ActiveFilter[]>([]);
 
+  // Map of state abbreviations to territory names
+  const stateToTerritoryMap: Record<string, string> = useMemo(
+    () => ({
+      // Pacific territory
+      CA: "Pacific",
+      WA: "Pacific",
+      OR: "Pacific",
+      HI: "Pacific",
+      AK: "Pacific",
+
+      // Mountain territory
+      CO: "Mountain",
+      UT: "Mountain",
+      MT: "Mountain",
+      ID: "Mountain",
+      WY: "Mountain",
+      NV: "Mountain",
+      AZ: "Mountain",
+      NM: "Mountain",
+
+      // Southeast territory
+      FL: "Southeast",
+      GA: "Southeast",
+      SC: "Southeast",
+      NC: "Southeast",
+      VA: "Southeast",
+      WV: "Southeast",
+      KY: "Southeast",
+      TN: "Southeast",
+      MS: "Southeast",
+      AL: "Southeast",
+      LA: "Southeast",
+      AR: "Southeast",
+
+      // Midwest territory
+      IL: "Midwest",
+      IN: "Midwest",
+      OH: "Midwest",
+      MI: "Midwest",
+      WI: "Midwest",
+      MN: "Midwest",
+      IA: "Midwest",
+      MO: "Midwest",
+      KS: "Midwest",
+      NE: "Midwest",
+      SD: "Midwest",
+      ND: "Midwest",
+
+      // Northeast territory
+      NY: "Northeast",
+      PA: "Northeast",
+      NJ: "Northeast",
+      CT: "Northeast",
+      RI: "Northeast",
+      MA: "Northeast",
+      VT: "Northeast",
+      NH: "Northeast",
+      ME: "Northeast",
+      DE: "Northeast",
+      MD: "Northeast",
+      DC: "Northeast",
+
+      // Southwest territory
+      TX: "Southwest",
+      OK: "Southwest",
+    }),
+    []
+  );
+
   useEffect(() => {
     /**
      * Fetches territory data from the API
@@ -125,7 +194,7 @@ const TerritoryDashboard: React.FC = () => {
     };
 
     fetchTerritoryData();
-  }, []);
+  }, [stateToTerritoryMap]);
 
   /**
    * Handles territory selection for filtering
@@ -195,73 +264,6 @@ const TerritoryDashboard: React.FC = () => {
     Record<string, Set<string>>
   >({});
 
-  // Map of state abbreviations to territory names
-  const stateToTerritoryMap: Record<string, string> = {
-    // Pacific territory
-    CA: "Pacific",
-    WA: "Pacific",
-    OR: "Pacific",
-    HI: "Pacific",
-    AK: "Pacific",
-
-    // Mountain territory
-    CO: "Mountain",
-    UT: "Mountain",
-    MT: "Mountain",
-    ID: "Mountain",
-    WY: "Mountain",
-    NV: "Mountain",
-    AZ: "Mountain",
-    NM: "Mountain",
-
-    // Southeast territory
-    FL: "Southeast",
-    GA: "Southeast",
-    SC: "Southeast",
-    NC: "Southeast",
-    VA: "Southeast",
-    WV: "Southeast",
-    KY: "Southeast",
-    TN: "Southeast",
-    MS: "Southeast",
-    AL: "Southeast",
-    LA: "Southeast",
-    AR: "Southeast",
-
-    // Midwest territory
-    IL: "Midwest",
-    IN: "Midwest",
-    OH: "Midwest",
-    MI: "Midwest",
-    WI: "Midwest",
-    MN: "Midwest",
-    IA: "Midwest",
-    MO: "Midwest",
-    KS: "Midwest",
-    NE: "Midwest",
-    SD: "Midwest",
-    ND: "Midwest",
-
-    // Northeast territory
-    NY: "Northeast",
-    PA: "Northeast",
-    NJ: "Northeast",
-    CT: "Northeast",
-    RI: "Northeast",
-    MA: "Northeast",
-    VT: "Northeast",
-    NH: "Northeast",
-    ME: "Northeast",
-    DE: "Northeast",
-    MD: "Northeast",
-    DC: "Northeast",
-
-    // Southwest territory
-    TX: "Southwest",
-    OK: "Southwest",
-  };
-
-  // Fetch transportation modes and deals data
   useEffect(() => {
     const fetchDealsData = async () => {
       try {
@@ -321,7 +323,7 @@ const TerritoryDashboard: React.FC = () => {
     };
 
     fetchDealsData();
-  }, []);
+  }, [stateToTerritoryMap]);
 
   /**
    * Combine all filter options
@@ -531,10 +533,10 @@ const TerritoryDashboard: React.FC = () => {
   }
 
   return (
-    <div className="grid gap-6">
+    <div className="grid gap-4 sm:gap-6">
       {/* Filter Bar */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+      <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
           Filter Territories
         </h2>
         <FilterBar
@@ -550,8 +552,8 @@ const TerritoryDashboard: React.FC = () => {
       </div>
 
       {/* Territory Performance Overview Section */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+      <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
           Territory Performance Overview
         </h2>
         <TerritoryPerformanceOverview
@@ -562,8 +564,8 @@ const TerritoryDashboard: React.FC = () => {
       </div>
 
       {/* Territory Map Visualization Section */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+      <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
           Territory Map Visualization
         </h2>
         <TerritoryMapVisualization
@@ -573,8 +575,8 @@ const TerritoryDashboard: React.FC = () => {
       </div>
 
       {/* Sales Rep Performance Section */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+      <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
           Sales Rep Performance by Territory
         </h2>
         <SalesRepPerformance
@@ -584,8 +586,8 @@ const TerritoryDashboard: React.FC = () => {
       </div>
 
       {/* Territory Comparison Section */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+      <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
           Territory Comparison
         </h2>
         <TerritoryComparison territoryData={filteredTerritoryData || {}} />

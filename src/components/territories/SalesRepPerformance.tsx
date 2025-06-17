@@ -168,49 +168,50 @@ const SalesRepPerformance: React.FC<SalesRepPerformanceProps> = ({
   return (
     <div>
       {selectedTerritory && (
-        <div className="mb-4 p-3 bg-blue-50 rounded-md">
-          <p className="text-sm text-blue-800">
+        <div className="mb-3 sm:mb-4 p-2 sm:p-3 bg-blue-50 rounded-md">
+          <p className="text-xs sm:text-sm text-blue-800">
             Showing sales reps for <strong>{selectedTerritory}</strong>{" "}
             territory
           </p>
         </div>
       )}
 
-      <div className="overflow-x-auto">
+      {/* Table View (visible on md screens and up) */}
+      <div className="hidden md:block overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
                 onClick={() => handleSort("name")}
               >
                 Sales Rep {renderSortIndicator("name")}
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
                 onClick={() => handleSort("wins")}
               >
                 Wins {renderSortIndicator("wins")}
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
                 onClick={() => handleSort("losses")}
               >
                 Losses {renderSortIndicator("losses")}
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
                 onClick={() => handleSort("winRate")}
               >
                 Win Rate {renderSortIndicator("winRate")}
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 Territories
               </th>
@@ -220,19 +221,19 @@ const SalesRepPerformance: React.FC<SalesRepPerformanceProps> = ({
             {sortedSalesReps.length > 0 ? (
               sortedSalesReps.map((rep) => (
                 <tr key={rep.name} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900">
                     {rep.name}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500">
                     {rep.totalWins}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500">
                     {rep.totalLosses}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500">
                     {formatPercentage(rep.winRate)}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500">
                     <div className="flex flex-wrap gap-1">
                       {rep.territories.map((territory) => (
                         <span
@@ -250,7 +251,7 @@ const SalesRepPerformance: React.FC<SalesRepPerformanceProps> = ({
               <tr>
                 <td
                   colSpan={5}
-                  className="px-6 py-4 text-center text-sm text-gray-500"
+                  className="px-4 sm:px-6 py-3 sm:py-4 text-center text-xs sm:text-sm text-gray-500"
                 >
                   No sales rep data available
                 </td>
@@ -258,6 +259,56 @@ const SalesRepPerformance: React.FC<SalesRepPerformanceProps> = ({
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* Card View (visible on small screens only) */}
+      <div className="md:hidden space-y-3">
+        {sortedSalesReps.length > 0 ? (
+          sortedSalesReps.map((rep) => (
+            <div
+              key={rep.name}
+              className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm"
+            >
+              <div className="flex justify-between items-start mb-3">
+                <h3 className="text-sm font-medium text-gray-900">
+                  {rep.name}
+                </h3>
+                <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded-full">
+                  {formatPercentage(rep.winRate)} Win Rate
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 text-xs mb-3">
+                <div>
+                  <p className="text-gray-500">Wins</p>
+                  <p className="font-medium text-gray-900">{rep.totalWins}</p>
+                </div>
+                <div>
+                  <p className="text-gray-500">Losses</p>
+                  <p className="font-medium text-gray-900">{rep.totalLosses}</p>
+                </div>
+              </div>
+
+              <div>
+                <p className="text-gray-500 text-xs mb-1">Territories</p>
+                <div className="flex flex-wrap gap-1">
+                  {rep.territories.map((territory) => (
+                    <span
+                      key={territory}
+                      className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800"
+                    >
+                      {territory}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="text-center text-xs sm:text-sm text-gray-500 p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
+            No sales rep data available
+          </div>
+        )}
       </div>
     </div>
   );

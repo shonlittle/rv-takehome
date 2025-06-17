@@ -161,7 +161,7 @@ const USMapVisualization: React.FC<USMapVisualizationProps> = ({
 
     // Set up dimensions
     const width = svgRef.current.clientWidth;
-    const height = 400;
+    const height = width < 500 ? 300 : 400; // Smaller height on smaller screens
     const margin = { top: 10, right: 10, bottom: 10, left: 10 };
 
     // Create the SVG container
@@ -286,9 +286,13 @@ const USMapVisualization: React.FC<USMapVisualizationProps> = ({
       { label: "Low (<30%)", color: "#ef4444" },
     ];
 
+    // Position legend based on screen size
+    const legendX = width < 500 ? 10 : width - 150;
+    const legendY = width < 500 ? 10 : height - 100;
+
     const legend = svg
       .append("g")
-      .attr("transform", `translate(${width - 150}, ${height - 100})`);
+      .attr("transform", `translate(${legendX}, ${legendY})`);
 
     legend
       .selectAll("rect")
@@ -307,16 +311,16 @@ const USMapVisualization: React.FC<USMapVisualizationProps> = ({
       .attr("x", 20)
       .attr("y", (d, i) => i * 20 + 10)
       .text((d) => d.label)
-      .attr("font-size", "10px")
+      .attr("font-size", width < 500 ? "8px" : "10px") // Smaller font on smaller screens
       .attr("fill", "#4b5563"); // gray-600
   }, [mapData, territoryData, selectedTerritory, onTerritorySelect]);
 
   return (
     <div className="relative w-full">
-      <svg ref={svgRef} className="w-full h-[400px]" />
+      <svg ref={svgRef} className="w-full h-[300px] sm:h-[400px]" />
       <div
         ref={tooltipRef}
-        className="absolute hidden bg-white p-2 rounded shadow-md border border-gray-200 text-sm z-10"
+        className="absolute hidden bg-white p-2 rounded shadow-md border border-gray-200 text-xs sm:text-sm z-10"
       />
     </div>
   );

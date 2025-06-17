@@ -21,10 +21,10 @@ import TerritoryDashboard from "../../components/territories/TerritoryDashboard"
 
 export default function TerritoriesPage() {
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-3 sm:p-4 md:p-6">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">
-          Territory Performance Dashboard
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6 md:mb-8">
+          Territories Dashboard
         </h1>
         <TerritoryDashboard />
       </div>

@@ -42,20 +42,20 @@ const FilterBar: React.FC<FilterBarProps> = ({
   searchPlaceholder = "Search...",
 }) => {
   return (
-    <div className="space-y-4">
-      <div className="flex flex-wrap gap-3 items-center">
+    <div className="space-y-3 sm:space-y-4">
+      <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3 items-stretch sm:items-center">
         {/* Search Input */}
-        <div className="relative flex-1 min-w-[200px]">
+        <div className="relative flex-1 min-w-[150px] sm:min-w-[200px]">
           <input
             type="text"
             placeholder={searchPlaceholder}
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full pl-8 sm:pl-10 pr-3 sm:pr-4 py-1.5 sm:py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <div className="absolute inset-y-0 left-0 pl-2 sm:pl-3 flex items-center pointer-events-none">
             <svg
-              className="h-5 w-5 text-gray-400"
+              className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -71,36 +71,41 @@ const FilterBar: React.FC<FilterBarProps> = ({
         </div>
 
         {/* Filter Dropdowns */}
-        {filters.map((filter) => (
-          <CustomDropdown
-            key={filter.id}
-            id={filter.id}
-            label={filter.label}
-            options={filter.options}
-            value={activeFilters.find((f) => f.id === filter.id)?.value || ""}
-            onChange={(value) => onFilterChange(filter.id, value)}
-          />
-        ))}
+        <div className="flex flex-wrap gap-2 sm:gap-3">
+          {filters.map((filter) => (
+            <CustomDropdown
+              key={filter.id}
+              id={filter.id}
+              label={filter.label}
+              options={filter.options}
+              value={activeFilters.find((f) => f.id === filter.id)?.value || ""}
+              onChange={(value) => onFilterChange(filter.id, value)}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Active Filters */}
       {activeFilters.length > 0 && (
-        <div className="flex flex-wrap gap-2 items-center">
-          <span className="text-sm text-gray-500">Active filters:</span>
+        <div className="flex flex-wrap gap-1.5 sm:gap-2 items-center">
+          <span className="text-xs sm:text-sm text-gray-500">
+            Active filters:
+          </span>
           {activeFilters.map((filter) => (
             <div
               key={`${filter.id}-${filter.value}`}
-              className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 text-blue-800"
+              className="inline-flex items-center px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm bg-blue-100 text-blue-800"
             >
-              <span>
+              <span className="truncate max-w-[120px] sm:max-w-none">
                 {filter.label}: {filter.value}
               </span>
               <button
                 onClick={() => onFilterRemove(filter)}
-                className="ml-2 text-blue-600 hover:text-blue-800 focus:outline-none"
+                className="ml-1 sm:ml-2 text-blue-600 hover:text-blue-800 focus:outline-none"
+                aria-label={`Remove ${filter.label} filter`}
               >
                 <svg
-                  className="h-4 w-4"
+                  className="h-3 w-3 sm:h-4 sm:w-4"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -117,7 +122,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
           ))}
           <button
             onClick={onClearAllFilters}
-            className="text-sm text-blue-600 hover:text-blue-800 focus:outline-none"
+            className="text-xs sm:text-sm text-blue-600 hover:text-blue-800 focus:outline-none"
           >
             Clear all
           </button>

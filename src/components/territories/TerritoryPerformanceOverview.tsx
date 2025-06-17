@@ -135,86 +135,134 @@ const TerritoryPerformanceOverview: React.FC<
   const sortedTerritories = getSortedTerritories();
 
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
-          <tr>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
-              onClick={() => handleSort("territory")}
-            >
-              Territory {renderSortIndicator("territory")}
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
-              onClick={() => handleSort("wins")}
-            >
-              Wins {renderSortIndicator("wins")}
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
-              onClick={() => handleSort("losses")}
-            >
-              Losses {renderSortIndicator("losses")}
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
-              onClick={() => handleSort("winRate")}
-            >
-              Win Rate {renderSortIndicator("winRate")}
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
-              onClick={() => handleSort("totalValue")}
-            >
-              Total Value {renderSortIndicator("totalValue")}
-            </th>
-          </tr>
-        </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
-          {sortedTerritories.length > 0 ? (
-            sortedTerritories.map(([territory, stats]) => (
-              <tr
-                key={territory}
-                className={`${
-                  selectedTerritory === territory ? "bg-blue-50" : ""
-                } hover:bg-gray-50 cursor-pointer`}
-                onClick={() => onTerritorySelect(territory)}
+    <div>
+      {/* Table View (visible on md screens and up) */}
+      <div className="hidden md:block overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                onClick={() => handleSort("territory")}
               >
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  {territory}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {stats.wins}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {stats.losses}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {formatPercentage(stats.winRate)}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {formatCurrency(stats.totalValue)}
+                Territory {renderSortIndicator("territory")}
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                onClick={() => handleSort("wins")}
+              >
+                Wins {renderSortIndicator("wins")}
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                onClick={() => handleSort("losses")}
+              >
+                Losses {renderSortIndicator("losses")}
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                onClick={() => handleSort("winRate")}
+              >
+                Win Rate {renderSortIndicator("winRate")}
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                onClick={() => handleSort("totalValue")}
+              >
+                Total Value {renderSortIndicator("totalValue")}
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {sortedTerritories.length > 0 ? (
+              sortedTerritories.map(([territory, stats]) => (
+                <tr
+                  key={territory}
+                  className={`${
+                    selectedTerritory === territory ? "bg-blue-50" : ""
+                  } hover:bg-gray-50 cursor-pointer`}
+                  onClick={() => onTerritorySelect(territory)}
+                >
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    {territory}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {stats.wins}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {stats.losses}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {formatPercentage(stats.winRate)}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {formatCurrency(stats.totalValue)}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan={5}
+                  className="px-6 py-4 text-center text-sm text-gray-500"
+                >
+                  No territory data available
                 </td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td
-                colSpan={5}
-                className="px-6 py-4 text-center text-sm text-gray-500"
-              >
-                No territory data available
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Card View (visible on small screens only) */}
+      <div className="md:hidden space-y-3">
+        {sortedTerritories.length > 0 ? (
+          sortedTerritories.map(([territory, stats]) => (
+            <div
+              key={territory}
+              className={`bg-white border border-gray-200 rounded-lg p-4 shadow-sm ${
+                selectedTerritory === territory ? "ring-2 ring-blue-500" : ""
+              }`}
+              onClick={() => onTerritorySelect(territory)}
+            >
+              <div className="flex justify-between items-start mb-3">
+                <h3 className="text-sm font-medium text-gray-900">
+                  {territory}
+                </h3>
+                <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded-full">
+                  {formatPercentage(stats.winRate)} Win Rate
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 text-xs">
+                <div>
+                  <p className="text-gray-500">Wins</p>
+                  <p className="font-medium text-gray-900">{stats.wins}</p>
+                </div>
+                <div>
+                  <p className="text-gray-500">Losses</p>
+                  <p className="font-medium text-gray-900">{stats.losses}</p>
+                </div>
+                <div className="col-span-2">
+                  <p className="text-gray-500">Total Value</p>
+                  <p className="font-medium text-gray-900">
+                    {formatCurrency(stats.totalValue)}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="text-center text-sm text-gray-500 p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
+            No territory data available
+          </div>
+        )}
+      </div>
     </div>
   );
 };

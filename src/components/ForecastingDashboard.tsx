@@ -30,34 +30,34 @@ import AtRiskDeals from "./forecasting/AtRiskDeals";
 
 const ForecastingDashboard: React.FC = () => {
   return (
-    <div className="grid gap-6">
+    <div className="grid gap-4 sm:gap-6">
       {/* 3-Month Revenue Forecast Section */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+      <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
           3-Month Revenue Forecast
         </h2>
         <RevenueForecasting />
       </div>
 
       {/* Win Rate Trends Section */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+      <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
           Win Rate Trends by Transportation Mode
         </h2>
         <WinRateTrends />
       </div>
 
       {/* Deal Velocity Metrics Section */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+      <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
           Deal Velocity Metrics
         </h2>
         <DealVelocityMetrics />
       </div>
 
       {/* At-Risk Deals Section */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
+      <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4">
           At-Risk Deals
         </h2>
         <AtRiskDeals />

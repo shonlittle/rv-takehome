@@ -43,19 +43,21 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
   const displayText = value ? selectedOption?.label : label;
 
   return (
-    <div className="relative min-w-[150px]" ref={dropdownRef}>
+    <div className="relative min-w-[120px] sm:min-w-[150px]" ref={dropdownRef}>
       {/* Dropdown Button */}
       <button
         type="button"
-        className="flex justify-between items-center w-full py-2 px-3 border border-gray-300 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        className="flex justify-between items-center w-full py-1.5 sm:py-2 px-2 sm:px-3 text-xs sm:text-sm border border-gray-300 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         onClick={() => setIsOpen(!isOpen)}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         id={`dropdown-button-${id}`}
       >
-        <span className="truncate">{displayText}</span>
+        <span className="truncate max-w-[100px] sm:max-w-full">
+          {displayText}
+        </span>
         <svg
-          className={`ml-2 h-5 w-5 text-gray-400 transition-transform ${
+          className={`ml-1 sm:ml-2 h-4 w-4 sm:h-5 sm:w-5 text-gray-400 transition-transform ${
             isOpen ? "transform rotate-180" : ""
           }`}
           xmlns="http://www.w3.org/2000/svg"
@@ -74,13 +76,13 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
       {/* Dropdown Menu */}
       {isOpen && (
         <div
-          className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
+          className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-48 sm:max-h-60 rounded-md py-1 text-xs sm:text-sm ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none"
           role="listbox"
           aria-labelledby={`dropdown-button-${id}`}
         >
           {/* Default "Select" option */}
           <div
-            className={`cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-blue-50 ${
+            className={`cursor-pointer select-none relative py-1.5 sm:py-2 pl-2 sm:pl-3 pr-6 sm:pr-9 hover:bg-blue-50 ${
               !value ? "bg-blue-100 text-blue-900" : "text-gray-900"
             }`}
             role="option"
@@ -97,7 +99,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
           {options.map((option) => (
             <div
               key={option.value}
-              className={`cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-blue-50 ${
+              className={`cursor-pointer select-none relative py-1.5 sm:py-2 pl-2 sm:pl-3 pr-6 sm:pr-9 hover:bg-blue-50 ${
                 value === option.value
                   ? "bg-blue-100 text-blue-900"
                   : "text-gray-900"
@@ -109,7 +111,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
                 setIsOpen(false);
               }}
             >
-              {option.label}
+              <span className="block truncate">{option.label}</span>
             </div>
           ))}
         </div>

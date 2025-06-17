@@ -170,29 +170,29 @@ const AtRiskDeals: React.FC = () => {
   );
 
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-          <p className="text-sm font-medium text-gray-600 mb-1">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+        <div className="bg-white border border-gray-200 rounded-lg p-3 sm:p-4 shadow-sm">
+          <p className="text-xs sm:text-sm font-medium text-gray-600 mb-1">
             At-Risk Deals
           </p>
-          <p className="text-2xl font-bold text-gray-900">
+          <p className="text-xl sm:text-2xl font-bold text-gray-900">
             {atRiskDeals.length}
           </p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-          <p className="text-sm font-medium text-gray-600 mb-1">
+        <div className="bg-white border border-gray-200 rounded-lg p-3 sm:p-4 shadow-sm">
+          <p className="text-xs sm:text-sm font-medium text-gray-600 mb-1">
             Total At-Risk Value
           </p>
-          <p className="text-2xl font-bold text-gray-900">
+          <p className="text-xl sm:text-2xl font-bold text-gray-900">
             {formatCurrency(totalAtRiskValue)}
           </p>
         </div>
-        <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-          <p className="text-sm font-medium text-gray-600 mb-1">
+        <div className="bg-white border border-gray-200 rounded-lg p-3 sm:p-4 shadow-sm">
+          <p className="text-xs sm:text-sm font-medium text-gray-600 mb-1">
             Avg. Days Stalled
           </p>
-          <p className="text-2xl font-bold text-gray-900">
+          <p className="text-xl sm:text-2xl font-bold text-gray-900">
             {(
               atRiskDeals.reduce((sum, deal) => sum + deal.daysSinceUpdate, 0) /
               atRiskDeals.length
@@ -201,33 +201,33 @@ const AtRiskDeals: React.FC = () => {
         </div>
       </div>
 
-      {/* Table View */}
-      <div className="overflow-x-auto mt-6">
+      {/* Table View (visible on md screens and up) */}
+      <div className="hidden md:block overflow-x-auto mt-4 sm:mt-6">
         <table className="min-w-full bg-white border border-gray-200 rounded-lg">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Deal ID
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Company
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Stage
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Value
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Last Updated
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Days Stalled
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Risk Level
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Sales Rep
               </th>
             </tr>
@@ -235,38 +235,89 @@ const AtRiskDeals: React.FC = () => {
           <tbody className="bg-white divide-y divide-gray-200">
             {atRiskDeals.map((deal) => (
               <tr key={deal.id} className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900">
                   {deal.deal_id}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
                   {deal.company_name}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 capitalize">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900 capitalize">
                   {deal.stage.replace("_", " ")}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
                   {formatCurrency(deal.value)}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
                   {formatDate(deal.updated_date)}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900">
                   {deal.daysSinceUpdate}
                 </td>
                 <td
-                  className={`px-6 py-4 whitespace-nowrap text-sm font-medium ${getRiskColor(
+                  className={`px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium ${getRiskColor(
                     deal.daysSinceUpdate
                   )}`}
                 >
                   {getRiskLevel(deal.daysSinceUpdate)}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <td className="px-4 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
                   {deal.sales_rep}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Card View (visible on small screens only) */}
+      <div className="md:hidden space-y-3 mt-4">
+        {atRiskDeals.map((deal) => (
+          <div
+            key={deal.id}
+            className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm"
+          >
+            <div className="flex justify-between items-start mb-2">
+              <div>
+                <h3 className="text-sm font-medium text-gray-900">
+                  {deal.company_name}
+                </h3>
+                <p className="text-xs text-gray-500">ID: {deal.deal_id}</p>
+              </div>
+              <div
+                className={`px-2 py-1 rounded-full text-xs font-medium ${getRiskColor(
+                  deal.daysSinceUpdate
+                )} bg-opacity-10`}
+              >
+                {getRiskLevel(deal.daysSinceUpdate)} Risk
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <div>
+                <p className="text-gray-500">Stage</p>
+                <p className="font-medium capitalize">
+                  {deal.stage.replace("_", " ")}
+                </p>
+              </div>
+              <div>
+                <p className="text-gray-500">Value</p>
+                <p className="font-medium">{formatCurrency(deal.value)}</p>
+              </div>
+              <div>
+                <p className="text-gray-500">Days Stalled</p>
+                <p className="font-medium">{deal.daysSinceUpdate}</p>
+              </div>
+              <div>
+                <p className="text-gray-500">Last Updated</p>
+                <p className="font-medium">{formatDate(deal.updated_date)}</p>
+              </div>
+              <div className="col-span-2">
+                <p className="text-gray-500">Sales Rep</p>
+                <p className="font-medium">{deal.sales_rep}</p>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
