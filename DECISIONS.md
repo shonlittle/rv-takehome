@@ -37,3 +37,18 @@
 
 - We could later expand this to include trends over time, industry benchmarking, or conversion funnels.
 - Documentation and README were updated to reflect new setup and usage. All my edits are under `From Developer` heading.
+
+## Additional Decisions Made
+
+### Territory Mapping Strategy
+
+Decided to hardcode a region-to-state mapping for simplicity, since deal locations were U.S. cities. This mapping powers regional grouping and map overlays. Used D3.js for U.S. map and colored regions by win rate performance.
+
+### Navigation Between Dashboards
+
+Added basic top-level navigation for Forecasting, Territories, and Home to improve usability for non-technical users. Chose simple `Link` components to maintain client-side routing and fast transitions.
+
+### Filtering and Responsive Design
+
+For filtering, I used controlled inputs for rep name and region, enabling dynamic query updates without full page reloads.  
+For responsive design, I kept layouts mobile-flexible using Tailwind’s breakpoints and ensured charts/table containers resized cleanly on small screens.
