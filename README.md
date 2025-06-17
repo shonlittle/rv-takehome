@@ -104,6 +104,14 @@ GET /api/stats/win-rates
   }));
   ```
 
+#### Screenshots
+
+- ![3-Month Revenue Forecast](./screenshots/forecasting-3-month-revenue.png)
+- ![Win Rate Trends](./screenshots/forecasting-win-rate-trends.png)
+- ![Deal Velocity Metrics](./screenshots/forecasting-deal-velocity.png)
+- ![At Risk Deals](./screenshots/forecasting-at-risk.png)
+- ![Territories Endpoint](./screenshots/win-rates-endpoint.png)
+
 ### BONUS: Milestone 1 (Option B: Territory Management System)
 
 This feature introduces an interactive dashboard and API that groups deals into U.S. territories and evaluates performance by region and sales rep. It provides sales ops leaders with a way to track team performance by region and identify workload imbalances.
@@ -218,6 +226,32 @@ GET /api/stats/territories
 - ![Rep Breakdown](./screenshots/territory-reps.png)
 - ![Map Viz](./screenshots/territory-map-viz.png)
 - ![Territories Endpoint](./screenshots/territories-endpoint.png)
+
+### Optional Milestone 2: Specialization Deep Dive
+
+For the optional Milestone 2, I pursued Path B: Full-Stack Product Development to showcase product-focused engineering work. I selected two enhancements:
+
+#### Advanced Search & Filtering
+
+I added client-side filtering to the Territories Dashboard, allowing users to:
+
+- Filter by **territory name**
+- Filter by **sales rep**
+- Filter by **stage**
+- Filter by **transportation mode**
+- See filtered results update immediately without page reload
+
+This improves usability for sales and operations leaders who want to quickly zero in on a rep or region without navigating through raw JSON or cluttered tables.
+
+#### Mobile-Responsive Design
+
+The application layout was adjusted for mobile and small screens using responsive Tailwind CSS utilities. Improvements include:
+
+- Dashboards now stack vertically on narrow screens
+- Tables and charts are scrollable or reformatted for readability
+- Navigation and headers adjust layout for smaller viewports
+
+This ensures the tool remains usable on phones and tablets for users on the go.
 
 ### AI Collaboration Report
 
