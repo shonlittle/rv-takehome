@@ -243,6 +243,8 @@ I added client-side filtering to the Territories Dashboard, allowing users to:
 
 This improves usability for sales and operations leaders who want to quickly zero in on a rep or region without navigating through raw JSON or cluttered tables.
 
+![Screenshot](./screenshots/search-and-filter.png)
+
 #### Mobile-Responsive Design
 
 The application layout was adjusted for mobile and small screens using responsive Tailwind CSS utilities. Improvements include:
@@ -252,6 +254,7 @@ The application layout was adjusted for mobile and small screens using responsiv
 - Navigation and headers adjust layout for smaller viewports
 
 This ensures the tool remains usable on phones and tablets for users on the go.
+![Screenshot](./screenshots/mobile.png)
 
 ### AI Collaboration Report
 
